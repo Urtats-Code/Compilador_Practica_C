@@ -64,7 +64,7 @@ public:
     std::vector<string> inilista(); 
     std::vector< int > inilistaNum(); 
 
-    std::vector<string> anadir( const vector<string> &lista, string &nombre ); 
+    std::vector<string> anadir( vector<string> &lista, string &nombre ); 
 
     // Hay que implementar 
     //unir vector<int> *unir(vector<int> lis1, vector<int> lis2)

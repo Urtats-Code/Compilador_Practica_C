@@ -123,6 +123,7 @@ std::vector< int > inilistaNum() {
 
 }
 
-std::vector<string> anadir( const vector<string> &lista, string &nombre ) {  
-
+std::vector<string> anadir( std::vector<string> &lista, string &nombre ) {  
+    lista.push_back( nombre ); 
+    return lista; 
 }
