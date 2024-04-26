@@ -1,0 +1,10 @@
+program prueba1
+
+procedure main 
+var a_2_b$c_ : float; {
+
+   a_2_b$c_ = 0.4756 ;
+
+}
+
+

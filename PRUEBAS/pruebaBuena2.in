@@ -1,0 +1,28 @@
+program example
+    var  a,b,c : integer;
+	var  d,e : float;
+    procedure add ( x,y: in integer; result:in out integer)
+	var aux, iteration : integer;
+    {
+        aux = x;
+        result = y;
+        if result < 1000 : {
+            iteration = 0;
+            while aux /= 0 : {
+                result = result + 1;
+                continue if result > 1000000 ;
+                aux = aux - 1;
+                iteration = iteration + 1;
+            }
+            finally: {
+                println(iteration);
+            };		
+	  };		
+    }
+    procedure main {
+        read(a); read(b);
+        d= 1/b;
+        e= 1/a;
+        c= c*(c*d)+e;
+        println(c*c);
+    }

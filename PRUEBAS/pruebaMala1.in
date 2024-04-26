@@ -1,0 +1,13 @@
+program pruebaMala1
+
+procedure main
+var a : float;
+{
+# esto ***  es un comentario de linea mal **
+
+
+#! Hasta fin de linea
+   a = 0.4756;
+   
+}
+

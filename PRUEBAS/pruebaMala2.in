@@ -1,0 +1,14 @@
+program pruebaMala2
+
+procedure main
+var &a : float;   #!identificador mal
+{
+ //** esto *** / es un **
+  comentario***// esto esta fuera //
+
+#! Mal constante real
+   a = 0000.4756 ;
+   
+
+}
+
