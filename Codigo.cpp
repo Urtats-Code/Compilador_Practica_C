@@ -91,8 +91,7 @@ int Codigo::obtenRef() const {
 /* añadir_argumentos */
 /************/
 
-
-void Codigo::anadir_argumentos(  const vector<string> &listaArgumentos,  const string &pClase,  const string &pTipo )  {
+void Codigo::anadir_argumentos(  const vector<string> &listaArgumentos, const string &pClase, const string &pTipo ) {
    
   vector<string>::const_iterator string_iter;
 
@@ -104,10 +103,13 @@ void Codigo::anadir_argumentos(  const vector<string> &listaArgumentos,  const s
     string name = pClase + LOW_BAR +  pTipo; 
     string cadena =  name + EMPTY_STRING +  *string_iter; 
     anadirInstruccion( *string_iter );
-    
   }
 
 }
+
+/************/
+/* inilista*/
+/************/
 
 std::vector<string> inilista() { 
 
@@ -116,14 +118,30 @@ std::vector<string> inilista() {
 
 }
 
-std::vector< int > inilistaNum() { 
+/************/
+/* inilistaNum */
+/************/
+
+std::vector< int > inilistaNum(int &num) { 
 
   std::vector< int > v = {};
+  v.push_back( num ); 
   return v;
 
 }
 
-std::vector<string> anadir( std::vector<string> &lista, string &nombre ) {  
+/************/
+/* anadirStr*/
+/************/
+std::vector<string> anadirStr( std::vector<string> &lista, string &nombre ) {  
     lista.push_back( nombre ); 
+    return lista; 
+}
+
+/************/
+/* anadirInt*/
+/************/
+std::vector<int> anadirInt( std::vector<int> &lista, int &num ) {  
+    lista.push_back( num ); 
     return lista; 
 }

@@ -59,24 +59,20 @@ public:
     /* Devuelve el número de la siguiente instrucción. */
     int obtenRef() const;
 
+    /*Por cada variable a la lista de entrada, empezando por el primero y hasta el último añade una instrucción teniendo en cuenta el par_class y el type.*/
     void anadir_argumentos(  const vector<string> &listaArgumentos, const string &pClase, const string &pTipo ) ;
 
+    /*Crea una lista vacía*/
     std::vector<string> inilista(); 
-    std::vector< int > inilistaNum(); 
+    
+    /*Crea una lista vacía cuyo primer y único elemento es “num”.*/
+    std::vector< int > inilistaNum(int &num); 
 
-    std::vector<string> anadir( vector<string> &lista, string &nombre ); 
+    /*Añade el nombre al comienzo de la lista de strings de entrada y devuelve la nueva lista.*/
+    std::vector<string> anadirStr( vector<string> &lista, string &nombre ); 
 
-    // Hay que implementar 
-    //unir vector<int> *unir(vector<int> lis1, vector<int> lis2)
-
-    //añadir_argumentos
-    //inilista
-    //inilistanum
-    //añadir
-
-
-
-
+    /*Añade el numero al comienzo de la lista de numeros de entrada y devuelve la nueva lista.*/
+    std::vector<string> anadirInt( vector<int> &lista, int &num ); 
 };
 
 #endif /* CODIGO_HPP_ */
