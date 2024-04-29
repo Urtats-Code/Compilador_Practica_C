@@ -7,6 +7,7 @@ struct expresionstruct {
   vector<int> trues ;
   vector<int> falses ;
   vector<int> exits ;
+  vector<int> continues ;
 };
 
 #endif /* EXP_HPP_ */

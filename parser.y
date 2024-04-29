@@ -19,11 +19,11 @@
    qué atributos tienen los tokens 
 */
 %union {
-    string *str ; 
-    vector<string> *list ;
-    expresionstruct *expr ;
-    int number ;
-    vector<int> *numlist; 
+   string *str ; 
+   vector<string> *list ;
+   expresionstruct *expr ;
+   int number ;
+   vector<int> *numlist; 
 }
 
 /* 
@@ -43,7 +43,6 @@
 %token <str> TSUMA TRESTA TMULTIPLICACION TDIVISION
 %token <str> TMENOR TMAYOR TMENOROIGUAL TMAYOROIGUAL TDIFERENTEA TIGUALQUE
 
-
 /*DEFINICIONES*/
 %token <str> TID TINTEGER_CONST TFLOAT_CONST TCOMENTARIO_MULTILINEA TCOMENTARIO_LINEA
 
@@ -59,11 +58,22 @@
 %left TSUMA TRESTA 
 %left TMULTIPLICACION TDIVISION
 
+/* declaración de símbolos no terminales con atributos */
+%type <str> par_class
+%type <str> variable
+%type <str> type 
+%type <expr> expression
+%type <number> M
+%type <expr> statement
+%type <expr> statements
+%type <list> id_list
+%type <list> id_list_rem
+
 %%
 start : RPROGRAM TID {codigo.anadirInstruccion("prog" + $2->str);} 
          block  {
                codigo.anadirInstruccion("halt");
-		         //codigo.escribir() ; 
+		         codigo.escribir() ; 
                }
       ;
 block : declarations {codigo.anadirInstruccion("call main");}
@@ -72,23 +82,23 @@ block : declarations {codigo.anadirInstruccion("call main");}
 procs_block : declarations
                procs
             ;
-declarations : RVAR id_list TDOSPUNTOS type TSEMIC {codigo.anadirDeclaraciones($2->str,$4->str);}
+declarations : RVAR id_list TDOSPUNTOS type TSEMIC {codigo.anadirDeclaraciones($2->str,$4);}
             declarations
-             | /* vacío */
+             | %empty /* vacío */
              ;
-id_list : TID id_list_rem {$$->str = codigo.anadir($$-str,$1->str);}
+id_list : TID id_list_rem {$$ = codigo.anadirStr($$,$1->str);}
         ;
-id_list_rem : TCOMA TID id_list_rem {$$->str = codigo.anadir($$-str,$2->str);}
-            | /* vacío */ {$$->str = codigo.inilista();}
+id_list_rem : TCOMA TID id_list_rem {$$ = codigo.anadirStr($$-list,$2->str);}
+            | %empty /* vacío */ {$$ = codigo.inilista();}
             ;
-type : RINTEGER {$$->str = "int";}
-      | RFLOAT {$$->str = "real";}
+type : RINTEGER {$$ = "int";}
+      | RFLOAT {$$= "real";}
       ;
 subprogs : subprogram subprogs
             | main_subprog
             ;
 procs : procs subprogram
-            | /* vacío */
+            | %empty /* vacío */
             ;
 subprogram : RPROCEDURE TID {codigo.anadirInstruccion("proc" + $2->str);}
             arguments procs_block TLBRACE statements TRBRACE {codigo.anadirInstruccion("endproc" + $2->str);}
@@ -97,60 +107,60 @@ main_subprog : RPROCEDURE RMAIN {codigo.anadirInstruccion("proc main");}
             procs_block TLBRACE statements TRBRACE 
             ;
 arguments : TPARENTESIS_ABRIR param_list TPARENTESIS_CERRAR
-            | /* vacío */ {$2->str = inilista();}
+            | %empty /* vacío */ {$1 = inilista();}
             ;
-param_list : id_list TDOSPUNTOS par_class type {codigo.anadirargumentos($1->str, $3->str, $4->str);}
+param_list : id_list TDOSPUNTOS par_class type {codigo.anadirargumentos($1, $3, $4);}
             param_list_rem
             ;
-par_class : RIN {$$->str = "val";}
-            |ROUT {$$->str = "ref";}
-            |RIN ROUT {$$->str = "ref";}
+par_class : RIN {$$ = "val";}
+            |ROUT {$$ = "ref";}
+            |RIN ROUT {$$ = "ref";}
             ;
-param_list_rem : TSEMIC id_list TDOSPUNTOS par_class type {codigo.anadirargumentos($2->str, $4->str, $5->str);}
+param_list_rem : TSEMIC id_list TDOSPUNTOS par_class type {codigo.anadirargumentos($2, $4, $5);}
                param_list_rem
-               | /* vacío */
+               | %empty /* vacío */
                ;
 statements : statements statement {$$->exits = codigo.unir($1->exits, $2->exits);
                                     $$->continues = codigo.unir($1->continues, $2->continues);}
-            | /* vacío */
+            | %empty /* vacío */
             ;
 statement : variable TASSIG expression TSEMIC 
-            {codigo.anadirInstruccion($1->str + " = " + $3->str);
+            {codigo.anadirInstruccion($1 + " = " + $3->str);
             $$->exits = inilista();
             $$->continues = inilista();}
 
             | RIF expression TDOSPUNTOS TLBRACE M statements M TRBRACE TSEMIC
-            {codigo.completar($2->trues, $5->number);
-            codigo.completar($2->falses, $7->number);
+            {codigo.completar($2->trues, $5);
+            codigo.completar($2->falses, $7);
             $$->exits = codigo.unir($$->exits, $5->exits);
             $$->continues = codigo.unir($$->continues, $5->continues);}
 
             | RWHILE RFOREVER TDOSPUNTOS TLBRACE M statements M TRBRACE TSEMIC
-            {codigo.completar($6->continues, $5->number);
-            codigo.completar($6->exits, $7->number + 1);
-            codigo.anadirInstruccion("goto" + $5->number);}
+            {codigo.completar($6->continues, $5);
+            codigo.completar($6->exits, $7 + 1);
+            codigo.anadirInstruccion("goto" + to_string($5));}
 
             | RWHILE M expression TDOSPUNTOS TLBRACE M statements M TRBRACE 
-            {codigo.anadirInstruccion("goto" + $2->number);
-            codigo.completar($7->continues, $2->number);
-            codigo.completar($3->trues, $6->number);
-            codigo.completar($3->falses, $8->number + 1);}
+            {codigo.anadirInstruccion("goto" + to_string($2));
+            codigo.completar($7->continues, $2);
+            codigo.completar($3->trues, $6);
+            codigo.completar($3->falses, $8 + 1);}
             
             RFINALLY TDOSPUNTOS TLBRACE M statements TRBRACE TSEMIC M
-            {codigo.completar($7->exits, $17->number);
-            codigo.completar($14->exits, $17->number);
-            codigo.completar($14->continues, $17->number);}
+            {codigo.completar($7->exits, $17);
+            codigo.completar($14->exits, $17);
+            codigo.completar($14->continues, $17);}
 
             | RBREAK TSEMIC M
-            {$$->exits = codigo.inilistaNum($3->number);
+            {$$->exits = codigo.inilistaNum($3);
             codigo.anadirInstruccion("goto");}
 
             | RCONTINUE RIF M expression TSEMIC
-            {codigo.completar($4->falses,$3->number);
-            codigo.anadir($$->continues, $3->number);}
+            {codigo.completar($4->falses,$3);
+            codigo.anadir($$->continues, $3);}
 
             | RREAD TPARENTESIS_ABRIR variable TPARENTESIS_CERRAR TSEMIC
-            {codigo.anadirInstruccion("read" + $3->str);
+            {codigo.anadirInstruccion("read" + $3);
                $$->continues = inilista();
                $$->exits = inilista();}
 
@@ -161,7 +171,7 @@ statement : variable TASSIG expression TSEMIC
                $$->exits = inilista();}
 
             ;
-variable : TID {$$->str = $1->str;}
+variable : TID {$$ = $1->str;}
          ;
 expression : expression TIGUALQUE expression
             {$$->str = codigo.nuevoId();
@@ -256,4 +266,5 @@ expression : expression TIGUALQUE expression
 
             ;
 
-M : ; {$$->number = codigo.obtenRef();}
+M:  %empty { $$ = codigo.obtenRef() ; }
+	;
