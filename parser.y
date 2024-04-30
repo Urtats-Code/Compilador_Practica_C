@@ -2,6 +2,8 @@
    #include <stdio.h>
    #include <iostream>
    #include <string>
+   #include <vector>
+   #include "Exp.hpp"
    using namespace std; 
 
    extern int yylex();
@@ -68,6 +70,7 @@
 %type <expr> statements
 %type <list> id_list
 %type <list> id_list_rem
+%type <list> arguments
 
 %%
 start : RPROGRAM TID {codigo.anadirInstruccion("prog" + $2->str);} 
@@ -107,7 +110,7 @@ main_subprog : RPROCEDURE RMAIN {codigo.anadirInstruccion("proc main");}
             procs_block TLBRACE statements TRBRACE 
             ;
 arguments : TPARENTESIS_ABRIR param_list TPARENTESIS_CERRAR
-            | %empty /* vacío */ {$1 = inilista();}
+            | %empty /* vacío */ /*{$$ = inilista();}*/
             ;
 param_list : id_list TDOSPUNTOS par_class type {codigo.anadirargumentos($1, $3, $4);}
             param_list_rem

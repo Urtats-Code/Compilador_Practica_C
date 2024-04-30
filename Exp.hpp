@@ -1,13 +1,15 @@
 #ifndef EXP_HPP_
 #define EXP_HPP_
 
+#include <vector>
+#include <string>
 
 struct expresionstruct {
-  string str ;
-  vector<int> trues ;
-  vector<int> falses ;
-  vector<int> exits ;
-  vector<int> continues ;
+  std::string str;
+  std::vector<int> trues;
+  std::vector<int> falses;
+  std::vector<int> exits;
+  std::vector<int> continues;
 };
 
 #endif /* EXP_HPP_ */
