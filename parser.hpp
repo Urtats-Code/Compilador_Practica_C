@@ -101,11 +101,15 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 21 "parser.y"
+#line 25 "parser.y"
 
-    string *str ; 
+   string *str ; 
+   vector<string> *list ;
+   expresionstruct *expr ;
+   int number ;
+   vector<int> *numlist; 
 
-#line 109 "parser.hpp"
+#line 113 "parser.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;

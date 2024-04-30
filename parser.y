@@ -4,6 +4,8 @@
    #include <string>
    #include <vector>
    #include "Exp.hpp"
+   #include "Codigo.hpp"
+
    using namespace std; 
 
    extern int yylex();
@@ -73,7 +75,7 @@
 %type <list> arguments
 
 %%
-start : RPROGRAM TID {codigo.anadirInstruccion("prog" + $2->str);} 
+start : RPROGRAM TID {Codigo.anadirInstruccion("prog" + $2->str);} 
          block  {
                codigo.anadirInstruccion("halt");
 		         codigo.escribir() ; 
@@ -85,13 +87,13 @@ block : declarations {codigo.anadirInstruccion("call main");}
 procs_block : declarations
                procs
             ;
-declarations : RVAR id_list TDOSPUNTOS type TSEMIC {codigo.anadirDeclaraciones($2->str,$4);}
+declarations : RVAR id_list TDOSPUNTOS type TSEMIC {codigo.anadirDeclaraciones($2,$4);}
             declarations
              | %empty /* vacío */
              ;
-id_list : TID id_list_rem {$$ = codigo.anadirStr($$,$1->str);}
+id_list : TID id_list_rem {$$ = codigo.anadirStr($$,$1);}
         ;
-id_list_rem : TCOMA TID id_list_rem {$$ = codigo.anadirStr($$-list,$2->str);}
+id_list_rem : TCOMA TID id_list_rem {$$ = codigo.anadirStr($$->list,$2->str); $$ = codigo.unir($$,$3)}
             | %empty /* vacío */ {$$ = codigo.inilista();}
             ;
 type : RINTEGER {$$ = "int";}
@@ -180,7 +182,7 @@ expression : expression TIGUALQUE expression
             {$$->str = codigo.nuevoId();
             $$->trues = codigo.inilistaNum(codigo.obtenRef());
             $$->falses = codigo.inilistaNum(codigo.obtenRef()+1);
-            codigo.anadirInstruccion("if" + $1->str + "==" + "goto");
+            codigo.anadirInstruccion("if" + $1->str + "="+"=" + "goto");
             codigo.anadirInstruccion("goto");}
 
             | expression TMENOR expression
@@ -195,54 +197,54 @@ expression : expression TIGUALQUE expression
             {$$->str = codigo.nuevoId();
             $$->trues = codigo.inilistaNum(codigo.obtenRef());
             $$->falses = codigo.inilistaNum(codigo.obtenRef()+1);
-            codigo.anadirInstruccion("if" + $1->str + "<" + "goto");
-            codigo.anadirInstruccion("goto");}
+            codigo.anadirInstruccion("if" + $1->str + "<"+"+"+" goto");
+            codigo.anadirInstruccion("goto"); }
 
 
             | expression TMAYOROIGUAL expression
             {$$->str = codigo.nuevoId();
             $$->trues = codigo.inilistaNum(codigo.obtenRef());
             $$->falses = codigo.inilistaNum(codigo.obtenRef()+1);
-            codigo.anadirInstruccion("if" + $1->str + ">=" + "goto");
+            codigo.anadirInstruccion("if" + $1->str + ">"+"=" + "goto");
             codigo.anadirInstruccion("goto");}
 
             | expression TMENOROIGUAL expression
             {$$->str = codigo.nuevoId();
             $$->trues = codigo.inilistaNum(codigo.obtenRef());
             $$->falses = codigo.inilistaNum(codigo.obtenRef()+1);
-            codigo.anadirInstruccion("if" + $1->str + "<=" + "goto");
+            codigo.anadirInstruccion("if" + $1->str + "<"+"=" + "goto");
             codigo.anadirInstruccion("goto");}
 
             | expression TDIFERENTEA expression
             {$$->str = codigo.nuevoId();
             $$->trues = codigo.inilistaNum(codigo.obtenRef());
             $$->falses = codigo.inilistaNum(codigo.obtenRef()+1);
-            codigo.anadirInstruccion("if" + $1->str + "/=" + "goto");
+            codigo.anadirInstruccion("if" + $1->str + "/"+"=" + "goto");
             codigo.anadirInstruccion("goto");}
 
             | expression TSUMA expression
             {$$->str = codigo.nuevoId();
             $$->trues = codigo.inilista();
             $$->falses = codigo.inilista();
-            codigo.anadirInstruccion($$->str + "=" + $1>str + "+" + $3->str);}
+            codigo.anadirInstruccion($$->str + "=" + $1->str + "+" + $3->str);}
 
             | expression TRESTA expression
             {$$->str = codigo.nuevoId();
             $$->trues = codigo.inilista();
             $$->falses = codigo.inilista();
-            codigo.anadirInstruccion($$->str + "=" + $1>str + "-" + $3->str);}
+            codigo.anadirInstruccion($$->str + "=" + $1->str + "-" + $3->str);}
 
             | expression TMULTIPLICACION expression
             {$$->str = codigo.nuevoId();
             $$->trues = codigo.inilista();
             $$->falses = codigo.inilista();
-            codigo.anadirInstruccion($$->str + "=" + $1>str + "*" + $3->str);}
+            codigo.anadirInstruccion($$->str + "=" + $1->str + "*" + $3->str);}
 
             | expression TDIVISION expression
             {$$->str = codigo.nuevoId();
             $$->trues = codigo.inilista();
             $$->falses = codigo.inilista();
-            codigo.anadirInstruccion($$->str + "=" + $1>str + "/" + $3->str);}
+            codigo.anadirInstruccion($$->str + "=" + $1->str + "/" + $3->str);}
 
             | TID
             {$$->str = $1->str;
