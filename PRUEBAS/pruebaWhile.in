@@ -1,0 +1,11 @@
+program estructura_while
+    var n, i: integer;
+
+    procedure main {
+        read(n);
+        i = 1;
+        while i <= n : {
+            println(i);
+            i = i + 1;
+        }
+    }

@@ -1,0 +1,8 @@
+program llamada_procedimiento
+    procedure greet {
+        println("¡Hola!");
+    }
+
+    procedure main {
+        greet();
+    }

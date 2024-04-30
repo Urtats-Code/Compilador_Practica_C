@@ -1,0 +1,8 @@
+program variables_float
+    var x, y: float;
+
+    procedure main {
+        x = 3.14;
+        y = 2.718;
+        println(x * y);
+    }
