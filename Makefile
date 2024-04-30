@@ -1,26 +1,23 @@
 CFLAGS=-Wall
-TESTDIR=PRUEBAS
+FUENTES=parser.cpp main.cpp tokens.cpp Codigo.cpp
+TESTDIR=./PRUEBAS
 
-all: parser prueba
+all: parser test
 
-.PHONY: clean 
 clean:
-	rm parser.cpp parser.h parser tokens.cpp *~
+	rm parser.cpp parser.hpp parser tokens.cpp *~
 
-parser.cpp: parser.y
-	bison -Wcounterexamples -d -o $@ $^
+parser.cpp parser.hpp: parser.y 
+	bison -d -o $@ $<
 
-parser.hpp: parser.cpp
+tokens.cpp: tokens.l parser.hpp 
+	flex --yylineno -o $@ $<
 
-tokens.cpp: tokens.l parser.hpp
-	flex -o $@ $^
+parser: $(FUENTES) Codigo.hpp Exp.hpp
+	g++ $(CFLAGS) -o $@ $(FUENTES) 
 
-parser: parser.cpp main.cpp tokens.cpp
-	g++ $(CFLAGS) -o $@ *.cpp 
-
-prueba: parser $(TESTDIR)/*.in 
+test: parser $(TESTDIR)/*.in 
 
 $(TESTDIR)/%.in: parser
 	@echo "PROBANDO: ./$< < $@"
 	./$< < $@
-	
