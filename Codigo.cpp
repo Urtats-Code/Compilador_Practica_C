@@ -105,8 +105,6 @@ std::string Codigo::dollar_to_string(std::string* s) {
     // Perform your dollar-replacement logic on 'result'
     // ...
 
-    printf( "%s", s);
-
     return result;
 }
 /////////////////////////////////////////////7
