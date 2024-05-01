@@ -78,6 +78,8 @@ public:
     std::vector<int> unirInt(const std::vector<int> &lista1, const std::vector<int> &lista2);
 
     std::vector<int> inilistaNumEmpty( );
+    
+    std::string add( char *c );
 
 };
 
