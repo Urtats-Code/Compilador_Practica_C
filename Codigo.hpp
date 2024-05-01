@@ -59,8 +59,8 @@ public:
     /* Devuelve el número de la siguiente instrucción. */
     int obtenRef() const;
 
-    string unirStrings1(const char* c, const string& s) ;
-    string dollar_to_string( string* s );
+    std::string unirStrings1(const char* c, const std::string& s) ;
+    std::string dollar_to_string( std::string* s );
 
     /////////////////////////////////////////////7
     /* NUEVAS FUNCIONES AÑADIDAS */
