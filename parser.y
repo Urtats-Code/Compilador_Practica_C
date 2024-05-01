@@ -207,6 +207,8 @@ expression : expression TIGUALQUE expression
               *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
               $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
               $$ -> falses = codigo.inilistaNum(codigo.obtenRef() + 1);
+              delete $1; delete $3;
+              delete $1; delete $3; 
             } 
 
             | expression TMENOR expression
@@ -216,6 +218,7 @@ expression : expression TIGUALQUE expression
               *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
               $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
               $$ -> falses = codigo.inilistaNum(codigo.obtenRef() + 1);
+              delete $1; delete $3;
             } 
 
 
@@ -226,6 +229,7 @@ expression : expression TIGUALQUE expression
               *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
               $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
               $$ -> falses = codigo.inilistaNum(codigo.obtenRef() + 1);
+              delete $1; delete $3;
             } 
 
 
@@ -236,6 +240,7 @@ expression : expression TIGUALQUE expression
               *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
               $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
               $$ -> falses = codigo.inilistaNum(codigo.obtenRef() + 1);
+              delete $1; delete $3;
             } 
 
             | expression TMENOROIGUAL expression
@@ -245,6 +250,7 @@ expression : expression TIGUALQUE expression
               *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
               $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
               $$ -> falses = codigo.inilistaNum(codigo.obtenRef() + 1);
+              delete $1; delete $3;
             } 
 
             | expression TDIFERENTEA expression
@@ -254,6 +260,7 @@ expression : expression TIGUALQUE expression
               *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
               $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
               $$ -> falses = codigo.inilistaNum(codigo.obtenRef() + 1);
+              delete $1; delete $3;
             } 
 
             | expression TSUMA expression
@@ -263,6 +270,7 @@ expression : expression TIGUALQUE expression
               *$$ = makearithmetic($1 -> str, *$2 , $3 -> str) ; 
               $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
               $$ -> falses = codigo.inilistaNum(codigo.obtenRef() + 1);
+              delete $1; delete $3;
             } 
 
             | expression TRESTA expression
@@ -272,6 +280,7 @@ expression : expression TIGUALQUE expression
               *$$ = makearithmetic($1 -> str, *$2 , $3 -> str) ; 
               $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
               $$ -> falses = codigo.inilistaNum(codigo.obtenRef() + 1);
+              delete $1; delete $3;
             } 
 
             | expression TMULTIPLICACION expression
@@ -281,6 +290,7 @@ expression : expression TIGUALQUE expression
               *$$ = makearithmetic($1 -> str, *$2 , $3 -> str) ; 
               $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
               $$ -> falses = codigo.inilistaNum(codigo.obtenRef() + 1);
+              delete $1; delete $3;
             } 
 
 
@@ -291,6 +301,7 @@ expression : expression TIGUALQUE expression
               *$$ = makearithmetic($1 -> str, *$2 , $3 -> str) ; 
               $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
               $$ -> falses = codigo.inilistaNum(codigo.obtenRef() + 1);
+              delete $1; delete $3;
             } 
 
             | TID
