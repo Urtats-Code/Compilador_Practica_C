@@ -1,10 +1,16 @@
 %define parse.error verbose
 
 %{
-   #include <stdio.h>
+
    #include <iostream>
+   #include <sstream>
+   #include <fstream>
+   #include <set>
    #include <vector>
-   #include <string>
+   #include <string.h>
+   #include <stdio.h>
+   #include <stdlib.h>
+   
    using namespace std; 
 
    extern int yylex();
@@ -12,12 +18,14 @@
    extern char *yytext;
    extern int yyerrornum;
    void yyerror (const char *msg) {
-      printf("line %d: %s at '%s'\n", yylineno, msg, yytext) ;
-      yyerrornum++;
+     cout << "line " << yylineno <<": " << msg << " at token " << yytext << endl ;
+     yyerrornum++;
    }
 
    #include "Codigo.hpp"
    #include "Exp.hpp"
+
+   vector<int> *unir(vector<int> lis1, vector<int> lis2);
 
    Codigo Codigo;
 
@@ -33,7 +41,7 @@
    expresionstruct *expr ;
    sentences *sentc ;
    int number ;
-   std::vector<int> *numlist; 
+   vector<int> *numlist; 
 }
 
 /* 
