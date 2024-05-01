@@ -4,13 +4,13 @@
 %{
  #include <string>
  #include <iostream>
-  #include <vector>
+ #include <vector>
  #include <algorithm>
  using namespace std;
  #include "Exp.hpp"
  #include "parser.hpp" 
 
- #define TOKEN(t) yylval.str = new string(yytext, yyleng) ; return t 
+ #define TOKEN(t) yylval.str = new std::string(yytext, yyleng) ; return t 
 
  extern "C" int yywrap() { return(1) ; }  
  extern int yyerror(const char *); 
