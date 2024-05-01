@@ -2,15 +2,11 @@
 
 %{
 
-   #include <iostream>
-   #include <sstream>
-   #include <fstream>
-   #include <set>
-   #include <vector>
-   #include <string.h>
    #include <stdio.h>
-   #include <stdlib.h>
-   
+   #include <iostream>
+   #include <vector>
+   #include <string>
+
    using namespace std; 
 
    extern int yylex();
@@ -24,8 +20,6 @@
 
    #include "Codigo.hpp"
    #include "Exp.hpp"
-
-   vector<int> *unir(vector<int> lis1, vector<int> lis2);
 
    Codigo Codigo;
 
@@ -287,3 +281,5 @@ expression : expression TIGUALQUE expression
 
 M:  %empty { $$ = Codigo.obtenRef() ; }
 	;
+   
+%%
