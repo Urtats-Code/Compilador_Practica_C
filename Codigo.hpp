@@ -60,6 +60,7 @@ public:
     int obtenRef() const;
 
     string unirStrings1(const char* c, const string& s) ;
+    string dollar_to_string( string* s );
 
     /////////////////////////////////////////////7
     /* NUEVAS FUNCIONES AÑADIDAS */

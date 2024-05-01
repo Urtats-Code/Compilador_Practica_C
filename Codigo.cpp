@@ -93,6 +93,17 @@ string Codigo::unirStrings1(const char* c, const string& s) {
     result.append(s);
     return result;
 }
+
+ string dollar_to_string( string* s ){
+
+  int i;
+  printf( " Este es el texto que me introducen: %s \n\n\n\n\n\n\n\n\n\n", s );
+
+  for( i = 0 ;  i < sizeof( s ) ; i++){
+    printf( "%c", s[ i ]);
+  }
+
+ }
 /////////////////////////////////////////////7
 /* NUEVAS FUNCIONES AÑADIDAS */
 /////////////////////////////////////////////7
