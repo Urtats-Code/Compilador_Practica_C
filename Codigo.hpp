@@ -66,7 +66,7 @@ public:
     std::vector<std::string> inilista();
 
     /* Crea una lista vacía cuyo primer y único elemento es “num”. */
-    std::vector<int> inilistaNum(int &num);
+    std::vector<int> inilistaNum(int num);
 
     /* Añade el nombre al comienzo de la lista de strings de entrada y devuelve la nueva lista. */
     std::vector<std::string> anadirStr(std::vector<std::string> &lista, std::string &nombre);

@@ -122,7 +122,7 @@ vector<string> Codigo::inilista() {
 /* inilistaNum */
 /************/
 
-vector<int> Codigo::inilistaNum(int &num) {
+vector<int> Codigo::inilistaNum(int num) {
 
   vector<int> v = {};
   v.push_back( num );
