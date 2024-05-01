@@ -5,5 +5,5 @@ program estructura_if
         read(x);
         if x > 0 : {
             println("x es positivo");
-        }
+        };
     }
