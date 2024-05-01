@@ -88,9 +88,6 @@
 
 %type <number> M
 
-%type <list> id_list
-%type <list> id_list_rem
-
 
 /*Aquí falta poner la asociatividad y precedencia de los operadores*/
 /*** Aquí se indica la prioridad y asociatividad de los operadores:
