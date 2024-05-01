@@ -87,14 +87,11 @@ int Codigo::obtenRef() const {
 	return instrucciones.size() + 1;
 }
 
-string* Codigo::unirStrings1(const char* c, const string& s) {
-  
-    string* result = new string; 
-
-    result -> append(c); 
-    result -> append(s); 
-
-  return result;
+string Codigo::unirStrings1(const char* c, const string& s) {
+    string result;
+    result.append(c);
+    result.append(s);
+    return result;
 }
 /////////////////////////////////////////////7
 /* NUEVAS FUNCIONES AÑADIDAS */

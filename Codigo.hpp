@@ -59,7 +59,7 @@ public:
     /* Devuelve el número de la siguiente instrucción. */
     int obtenRef() const;
 
-    string* unirStrings1(const char* c, const string& s) ;
+    string unirStrings1(const char* c, const string& s) ;
 
     /////////////////////////////////////////////7
     /* NUEVAS FUNCIONES AÑADIDAS */
