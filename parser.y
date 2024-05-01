@@ -84,7 +84,13 @@
 
 %type <str> expression
 %type <str> variable
+%type <str> type 
+
 %type <number> M
+
+%type <list> id_list
+%type <list> id_list_rem
+
 
 /*Aquí falta poner la asociatividad y precedencia de los operadores*/
 /*** Aquí se indica la prioridad y asociatividad de los operadores:
@@ -114,8 +120,8 @@ block : declarations {codigo.anadirInstruccion("call main");}
 procs_block : declarations
                procs
             ;
-declarations : RVAR id_list TDOSPUNTOS type TSEMIC {}
-            declarations
+declarations : RVAR id_list TDOSPUNTOS type TSEMIC { codigo.anadirDeclaraciones( $2 , $4 ) }
+            declarations 
              | %empty /* vacío */
              ;
 id_list : TID id_list_rem 
