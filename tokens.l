@@ -3,8 +3,11 @@
 
 %{
  #include <string>
- using namespace std;
  #include <iostream>
+  #include <vector>
+ #include <algorithm>
+ using namespace std;
+ #include "Exp.hpp"
  #include "parser.hpp" 
 
  #define TOKEN(t) yylval.str = new string(yytext, yyleng) ; return t 
