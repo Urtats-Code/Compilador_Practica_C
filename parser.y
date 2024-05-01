@@ -143,33 +143,33 @@ statement : variable TASSIG expression TSEMIC
             $$->continues = Codigo.inilistaNumEmpty();}
 
             | RIF expression TDOSPUNTOS TLBRACE M statements M TRBRACE TSEMIC
-            {Codigo.completar($2->trues, $5);
-            Codigo.completar($2->falses, $7);
+            {Codigo.completarInstrucciones($2->trues, $5);
+            Codigo.completarInstrucciones($2->falses, $7);
             $$->exits = Codigo.unir($$->exits, $5->exits);
             $$->continues = Codigo.unir($$->continues, $5->continues);}
 
             | RWHILE RFOREVER TDOSPUNTOS TLBRACE M statements M TRBRACE TSEMIC
-            {Codigo.completar($6->continues, $5);
-            Codigo.completar($6->exits, $7 + 1);
+            {Codigo.completarInstrucciones($6->continues, $5);
+            Codigo.completarInstrucciones($6->exits, $7 + 1);
             Codigo.anadirInstruccion("goto" + to_string($5));}
 
             | RWHILE M expression TDOSPUNTOS TLBRACE M statements M TRBRACE 
             {Codigo.anadirInstruccion("goto" + to_string($2));
-            Codigo.completar($7->continues, $2);
-            Codigo.completar($3->trues, $6);
-            Codigo.completar($3->falses, $8 + 1);}
+            Codigo.completarInstrucciones($7->continues, $2);
+            Codigo.completarInstrucciones($3->trues, $6);
+            Codigo.completarInstrucciones($3->falses, $8 + 1);}
             
             RFINALLY TDOSPUNTOS TLBRACE M statements TRBRACE TSEMIC M
-            {Codigo.completar($7->exits, $17);
-            Codigo.completar($14->exits, $17);
-            Codigo.completar($14->continues, $17);}
+            {Codigo.completarInstrucciones($7->exits, $17);
+            Codigo.completarInstrucciones($14->exits, $17);
+            Codigo.completarInstrucciones($14->continues, $17);}
 
             | RBREAK TSEMIC M
             {$$->exits = Codigo.inilistaNum($3);
             Codigo.anadirInstruccion("goto");}
 
             | RCONTINUE RIF M expression TSEMIC
-            {Codigo.completar($4->falses,$3);
+            {Codigo.completarInstrucciones($4->falses,$3);
             Codigo.anadir($$->continues, $3);}
 
             | RREAD TPARENTESIS_ABRIR variable TPARENTESIS_CERRAR TSEMIC
