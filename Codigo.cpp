@@ -160,18 +160,6 @@ vector<int> Codigo::anadirInt( vector<int> &lista, int &num ) {
 }
 
 
-std::string add( char *c ){
-
-  int i; 
-  string result;
-
-  for ( i = 0 ; i != NULL ; i ++ )
-    result[ i++ ] = c[ i ++ ];
-  
-
-  return result;
-
-}
 /************/
 /* unirInt*/
 /************/
