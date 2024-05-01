@@ -10,9 +10,9 @@
    extern int yylineno;
    extern char *yytext;
    extern int yyerrornum;
-  void yyerror (const char *msg) {
-     printf("line %d: %s at '%s'\n", yylineno, msg, yytext) ;
-     yyerrornum++;
+   void yyerror (const char *msg) {
+      printf("line %d: %s at '%s'\n", yylineno, msg, yytext) ;
+      yyerrornum++;
    }
 
    #include "Exp.hpp"
@@ -27,11 +27,11 @@
 */
 %union {
    string *str ; 
+   vector<int> *numlist; 
    vector<string> *list ;
    expresionstruct *expr ;
    sentences *sentc ;
    int number ;
-   vector<int> *numlist; 
 }
 
 /* 
