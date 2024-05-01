@@ -202,80 +202,126 @@ variable : TID { $$ = $1;  }
          ;
 expression : expression TIGUALQUE expression
             { 
+              $$ -> str = codigo.nuevoId();
               $$ = new expresionstruct; 
               *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
+              $$ -> trues := codigo.inilistaNum(obtenref());
+              $$ -> falses := codigo.inilistaNum(obtenref()+1);
             } 
 
             | expression TMENOR expression
             { 
+              $$ -> str = codigo.nuevoId();
               $$ = new expresionstruct; 
               *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
+              $$ -> trues := codigo.inilistaNum(obtenref());
+              $$ -> falses := codigo.inilistaNum(obtenref()+1);
             } 
 
 
             | expression TMAYOR expression
             { 
+              $$ -> str = codigo.nuevoId();
               $$ = new expresionstruct; 
               *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
+              $$ -> trues := codigo.inilistaNum(obtenref());
+              $$ -> falses := codigo.inilistaNum(obtenref()+1);
             } 
 
 
             | expression TMAYOROIGUAL expression
             { 
+              $$ -> str = codigo.nuevoId();
               $$ = new expresionstruct; 
               *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
+              $$ -> trues := codigo.inilistaNum(obtenref());
+              $$ -> falses := codigo.inilistaNum(obtenref()+1);
             } 
 
             | expression TMENOROIGUAL expression
             { 
+              $$ -> str = codigo.nuevoId();
               $$ = new expresionstruct; 
               *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
+              $$ -> trues := codigo.inilistaNum(obtenref());
+              $$ -> falses := codigo.inilistaNum(obtenref()+1);
             } 
 
             | expression TDIFERENTEA expression
             { 
+              $$ -> str = codigo.nuevoId();
               $$ = new expresionstruct; 
               *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
+              $$ -> trues := codigo.inilistaNum(obtenref());
+              $$ -> falses := codigo.inilistaNum(obtenref()+1);
             } 
 
             | expression TSUMA expression
             { 
+              $$ -> str = codigo.nuevoId();
               $$ = new expresionstruct; 
               *$$ = makearithmetic($1 -> str, *$2 , $3 -> str) ; 
+              $$ -> trues := codigo.inilistaNum(obtenref());
+              $$ -> falses := codigo.inilistaNum(obtenref()+1);
             } 
 
             | expression TRESTA expression
             { 
+              $$ -> str = codigo.nuevoId();
               $$ = new expresionstruct; 
               *$$ = makearithmetic($1 -> str, *$2 , $3 -> str) ; 
+              $$ -> trues := codigo.inilistaNum(obtenref());
+              $$ -> falses := codigo.inilistaNum(obtenref()+1);
             } 
 
             | expression TMULTIPLICACION expression
             { 
+              $$ -> str = codigo.nuevoId();
               $$ = new expresionstruct; 
               *$$ = makearithmetic($1 -> str, *$2 , $3 -> str) ; 
+              $$ -> trues := codigo.inilistaNum(obtenref());
+              $$ -> falses := codigo.inilistaNum(obtenref()+1);
             } 
 
 
             | expression TDIVISION expression
             { 
+              $$ -> str = codigo.nuevoId();
               $$ = new expresionstruct; 
               *$$ = makearithmetic($1 -> str, *$2 , $3 -> str) ; 
+              $$ -> trues := codigo.inilistaNum(obtenref());
+              $$ -> falses := codigo.inilistaNum(obtenref()+1);
             } 
 
             | TID
-            { $$ -> str = *$1 ; }
+            { 
+              $$ -> str = *$1 ; 
+              $$ -> trues := new vector<int>;
+              $$ -> falses := new vector<int>;
+            }
 
             | TINTEGER_CONST
-            { $$ -> str = *$1; }
+            { 
+              $$ -> str = *$1; 
+              $$ -> trues := new vector<int>;
+              $$ -> falses := new vector<int>;
+            }
 
 
             | TFLOAT_CONST
-            { $$ -> str = *$1; }
+            { 
+              $$ -> str = *$1; 
+              $$ -> trues := new vector<int>;
+              $$ -> falses := new vector<int>;
+            }
 
 
             | TPARENTESIS_ABRIR expression TPARENTESIS_CERRAR
-            { $$ = $2; }
+            { 
+              $$ = $2; 
+              $$ -> trues := new vector<int>;
+              $$ -> falses := new vector<int>;
+            }
 
 
             ;
