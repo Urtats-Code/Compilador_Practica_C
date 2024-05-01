@@ -30,7 +30,7 @@
 */
 
 %union {
-   string *str ; 
+   string str ; 
    vector<string> *list ; expresionstruct *expr ;
    sentences *sentc ;
    int number ;

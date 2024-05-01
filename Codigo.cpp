@@ -15,9 +15,11 @@ Codigo::Codigo() {
 /***********/
 
 string Codigo::nuevoId() {
+
   string nId("%t");
   nId += to_string(siguienteId++);
   return nId;
+  
 }
 
 /*********************/
