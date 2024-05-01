@@ -31,8 +31,7 @@
 
 %union {
    string *str ; 
-   vector<string> *list ;
-   expresionstruct *expr ;
+   vector<string> *list ; expresionstruct *expr ;
    sentences *sentc ;
    int number ;
    vector<int> *numlist; 
@@ -56,6 +55,7 @@
 %token <str> TMENOR TMAYOR TMENOROIGUAL TMAYOROIGUAL TDIFERENTEA TIGUALQUE
 
 /*DEFINICIONES*/
+
 %token <str> TID TINTEGER_CONST TFLOAT_CONST TCOMENTARIO_MULTILINEA TCOMENTARIO_LINEA
 
 %start start
@@ -266,7 +266,7 @@ expression : expression TIGUALQUE expression
 
 
             | TFLOAT_CONST
-            { $$->str = $1 -> str ;
+            { $$->str = $2 -> str ;
             $$->trues =  Codigo.inilistaNumEmpty();
             $$->falses = Codigo.inilistaNumEmpty() ;}
 
