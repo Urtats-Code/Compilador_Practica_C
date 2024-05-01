@@ -22,6 +22,8 @@ string Codigo::nuevoId() {
 
 }
 
+
+
 /*********************/
 /* anadirInstruccion */
 /*********************/

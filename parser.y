@@ -98,7 +98,7 @@
 
 %%
 
-start : RPROGRAM TID {Codigo.anadirInstruccion( &("prog" + $2) ) ;} 
+start : RPROGRAM TID {Codigo.anadirInstruccion( &( to_string("prog") + $2) ) ;} 
          block  {
                Codigo.anadirInstruccion("halt");
 		         Codigo.escribir() ; 
