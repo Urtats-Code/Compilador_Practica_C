@@ -262,12 +262,12 @@ expression : expression TIGUALQUE expression
             Codigo.anadirInstruccion($$->str + "=" + $1->str + "/" + $3->str);}
 
             | TID
-            {$$->str = $1 -> str ;
+            {$$->str = *$1  ;
             $$->trues = Codigo.inilistaNumEmpty();
             $$->falses = Codigo.inilistaNumEmpty();}
 
             | TINTEGER_CONST
-            {$$->str = $1 -> str ;
+            {$$->str = *$1  ;
             $$->trues = Codigo.inilistaNumEmpty();
             $$->falses = Codigo.inilistaNumEmpty();}
 
