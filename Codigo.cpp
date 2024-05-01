@@ -28,6 +28,25 @@ string Codigo::nuevoId() {
 /* anadirInstruccion */
 /*********************/
 
+// string Codigo::unirStrings1( char *c, string *s ){
+
+//   int i; 
+//   std::string result[ sizeof( c ) + sizeof( s ) ] = { "a" }; 
+
+//   for( i = 0 ; i < sizeof( c ) ; i ++ )
+//     result[ i ] = c[ i ];
+
+//   for( i = 0 ; i < sizeof( s ) ; i ++ )
+//     result[ i ] = s[ i ];
+
+//   return &result;
+
+// }
+
+/*********************/
+/* anadirInstruccion */
+/*********************/
+
 void Codigo::anadirInstruccion(const string &instruccion) {
   string cadena;
   cadena = to_string(obtenRef()) + ": " + instruccion;

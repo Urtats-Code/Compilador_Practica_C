@@ -31,7 +31,8 @@
    
 
    // Añado la declaración de la función unir. Si la hacéis diferente, debéis cambiar esta declaración.
-   vector<int> *unir(vector<int> lis1, vector<int> lis2);
+   vector<int> *unir(vector<int> lis1, vector<int> lis2);   
+
 
 
    Codigo Codigo;
@@ -85,6 +86,7 @@
 %left TMULTIPLICACION TDIVISION
 
 /* declaración de símbolos no terminales con atributos */
+
 %type <str> par_class
 %type <str> variable
 %type <str> type 
@@ -98,7 +100,7 @@
 
 %%
 
-start : RPROGRAM TID {Codigo.anadirInstruccion( &( to_string("prog") + $2) ) ;} 
+start : RPROGRAM TID {Codigo.anadirInstruccion( &("prog" + $2) ) ;} 
          block  {
                Codigo.anadirInstruccion("halt");
 		         Codigo.escribir() ; 
