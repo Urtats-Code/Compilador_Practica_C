@@ -207,18 +207,13 @@ expression : expression TIGUALQUE expression
             { 
               $$ = new expresionstruct; 
               *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
-              $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
-              $$ -> falses = codigo.inilistaNum(codigo.obtenRef() + 1);
               delete $1; delete $3;
-              delete $1; delete $3; 
             } 
 
             | expression TMENOR expression
             { 
               $$ = new expresionstruct; 
               *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
-              $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
-              $$ -> falses = codigo.inilistaNum(codigo.obtenRef() + 1);
               delete $1; delete $3;
             } 
 
@@ -227,8 +222,6 @@ expression : expression TIGUALQUE expression
             { 
               $$ = new expresionstruct; 
               *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
-              $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
-              $$ -> falses = codigo.inilistaNum(codigo.obtenRef() );
               delete $1; delete $3;
             } 
 
@@ -237,8 +230,6 @@ expression : expression TIGUALQUE expression
             { 
               $$ = new expresionstruct; 
               *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
-              $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
-              $$ -> falses = codigo.inilistaNum(codigo.obtenRef() + 1);
               delete $1; delete $3;
             } 
 
@@ -246,8 +237,6 @@ expression : expression TIGUALQUE expression
             { 
               $$ = new expresionstruct; 
               *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
-              $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
-              $$ -> falses = codigo.inilistaNum(codigo.obtenRef() + 1);
               delete $1; delete $3;
             } 
 
@@ -255,8 +244,6 @@ expression : expression TIGUALQUE expression
             { 
               $$ = new expresionstruct; 
               *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
-              $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
-              $$ -> falses = codigo.inilistaNum(codigo.obtenRef() + 1);
               delete $1; delete $3;
             } 
 
@@ -264,8 +251,6 @@ expression : expression TIGUALQUE expression
             { 
               $$ = new expresionstruct; 
               *$$ = makearithmetic($1 -> str, *$2 , $3 -> str) ; 
-              $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
-              $$ -> falses = codigo.inilistaNum(codigo.obtenRef() + 1);
               delete $1; delete $3;
             } 
 
@@ -273,8 +258,6 @@ expression : expression TIGUALQUE expression
             { 
               $$ = new expresionstruct; 
               *$$ = makearithmetic($1 -> str, *$2 , $3 -> str) ; 
-              $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
-              $$ -> falses = codigo.inilistaNum(codigo.obtenRef() + 1);
               delete $1; delete $3;
             } 
 
@@ -282,8 +265,6 @@ expression : expression TIGUALQUE expression
             { 
               $$ = new expresionstruct; 
               *$$ = makearithmetic($1 -> str, *$2 , $3 -> str) ; 
-              $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
-              $$ -> falses = codigo.inilistaNum(codigo.obtenRef() + 1);
               delete $1; delete $3;
             } 
 
@@ -292,8 +273,6 @@ expression : expression TIGUALQUE expression
             { 
               $$ = new expresionstruct; 
               *$$ = makearithmetic($1 -> str, *$2 , $3 -> str) ; 
-              $$ -> trues = codigo.inilistaNum( codigo.obtenRef() );
-              $$ -> falses = codigo.inilistaNum( codigo.obtenRef() + 1 );
               delete $1; delete $3;
             } 
 
@@ -344,6 +323,8 @@ expresionstruct makecomparison(std::string s1, std::string s2, std::string s3) {
 expresionstruct makearithmetic(std::string s1, std::string s2, std::string s3) {
   expresionstruct tmp ; 
   tmp.str = codigo.nuevoId() ;
+  tmp.trues.push_back(codigo.obtenRef()) ;
+  tmp.falses.push_back(codigo.obtenRef()+1) ;
   codigo.anadirInstruccion(tmp.str + ":=" + s1 + s2 + s3 + ";") ;     
   return tmp ;
 }
