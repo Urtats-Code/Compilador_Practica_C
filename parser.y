@@ -194,7 +194,7 @@ statement : variable TASSIG expression TSEMIC
 
 
             | RPRINTLN TPARENTESIS_ABRIR expression TPARENTESIS_CERRAR TSEMIC
-            { codigo.anadirInstruccion( "read" + $3 -> str ) ;}
+            { codigo.anadirInstruccion( "read " + $3 -> str ) ;}
  
             ;
 
