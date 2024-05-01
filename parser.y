@@ -18,7 +18,7 @@
    #include "Exp.hpp"
    #include "Codigo.hpp"
 
-   Codigo codigo;
+   Codigo Codigo;
 
 %}
 
