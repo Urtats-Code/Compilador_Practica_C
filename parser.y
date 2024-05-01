@@ -11,7 +11,7 @@
 
    extern int yylex();
    extern int yylineno;
-   extern string yytext;
+   extern string *yytext;
    extern int yyerrornum;
 
 
