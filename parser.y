@@ -188,8 +188,8 @@ variable : TID {$$ = $1->str;}
          ;
 expression : expression TIGUALQUE expression
             {$$->str = Codigo.nuevoId();
-            $$->trues = Codigo.inilistaNum(Codigo.obtenRef());
-            $$->falses = Codigo.inilistaNum(Codigo.obtenRef()+1);
+            $$->trues = Codigo.inilistaNum( &Codigo.obtenRef());
+            $$->falses = Codigo.inilistaNum( &Codigo.obtenRef()+1);
             Codigo.anadirInstruccion("if" + $1->str + "="+"=" + "goto");
             Codigo.anadirInstruccion("goto");}
 
@@ -203,30 +203,30 @@ expression : expression TIGUALQUE expression
 
             | expression TMAYOR expression
             {$$->str = Codigo.nuevoId();
-            $$->trues = Codigo.inilistaNum(Codigo.obtenRef());
-            $$->falses = Codigo.inilistaNum(Codigo.obtenRef()+1);
+            $$->trues = Codigo.inilistaNum( &Codigo.obtenRef());
+            $$->falses = Codigo.inilistaNum( &Codigo.obtenRef()+1);
             Codigo.anadirInstruccion("if" + $1->str + "<"+"+"+" goto");
             Codigo.anadirInstruccion("goto"); }
 
 
             | expression TMAYOROIGUAL expression
             {$$->str = Codigo.nuevoId();
-            $$->trues = Codigo.inilistaNum(Codigo.obtenRef());
-            $$->falses = Codigo.inilistaNum(Codigo.obtenRef()+1);
+            $$->trues = Codigo.inilistaNum( &Codigo.obtenRef() );
+            $$->falses = Codigo.inilistaNum( &Codigo.obtenRef()+1 );
             Codigo.anadirInstruccion("if" + $1->str + ">"+"=" + "goto");
             Codigo.anadirInstruccion("goto");}
 
             | expression TMENOROIGUAL expression
             {$$->str = Codigo.nuevoId();
-            $$->trues = Codigo.inilistaNum(Codigo.obtenRef());
-            $$->falses = Codigo.inilistaNum(Codigo.obtenRef()+1);
+            $$->trues = Codigo.inilistaNum( &Codigo.obtenRef() );
+            $$->falses = Codigo.inilistaNum( &Codigo.obtenRef()+1 );
             Codigo.anadirInstruccion("if" + $1->str + "<"+"=" + "goto");
             Codigo.anadirInstruccion("goto");}
 
             | expression TDIFERENTEA expression
             {$$->str = Codigo.nuevoId();
-            $$->trues = Codigo.inilistaNum( Codigo.obtenRef() );
-            $$->falses = Codigo.inilistaNum( Codigo.obtenRef()+1 );
+            $$->trues = Codigo.inilistaNum( &Codigo.obtenRef() );
+            $$->falses = Codigo.inilistaNum( &Codigo.obtenRef()+1 );
             Codigo.anadirInstruccion("if" + $1->str + "/"+"=" + "goto");
             Codigo.anadirInstruccion("goto");}
 
