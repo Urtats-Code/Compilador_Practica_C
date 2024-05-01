@@ -267,11 +267,11 @@ expression : expression TIGUALQUE expression
             { $$ -> str = *$1 ; }
 
             | TINTEGER_CONST
-            { $$ = $1; }
+            { $$ -> str = *$1; }
 
 
             | TFLOAT_CONST
-            { $$ = $1; }
+            { $$ -> str = *$1; }
 
 
             | TPARENTESIS_ABRIR expression TPARENTESIS_CERRAR
