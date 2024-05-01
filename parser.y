@@ -232,42 +232,42 @@ expression : expression TIGUALQUE expression
 
             | expression TSUMA expression
             {$$->str = Codigo.nuevoId();
-            $$->trues = Codigo.inilista();
-            $$->falses = Codigo.inilista();
+            $$->trues = Codigo.inilistaNumEmpty();
+            $$->falses = Codigo.inilistaNumEmpty();
             Codigo.anadirInstruccion($$->str + "=" + $1->str + "+" + $3->str);}
 
             | expression TRESTA expression
             {$$->str = Codigo.nuevoId();
-            $$->trues = Codigo.inilista();
-            $$->falses = Codigo.inilista();
+            $$->trues = Codigo.inilistaNumEmpty();
+            $$->falses = Codigo.inilistaNumEmpty();
             Codigo.anadirInstruccion($$->str + "=" + $1->str + "-" + $3->str);}
 
             | expression TMULTIPLICACION expression
             {$$->str = Codigo.nuevoId();
-            $$->trues = Codigo.inilista();
-            $$->falses = Codigo.inilista();
+            $$->trues = Codigo.inilistaNumEmpty();
+            $$->falses = Codigo.inilistaNumEmpty();
             Codigo.anadirInstruccion($$->str + "=" + $1->str + "*" + $3->str);}
 
             | expression TDIVISION expression
             {$$->str = Codigo.nuevoId();
-            $$->trues = Codigo.inilista();
-            $$->falses = Codigo.inilista();
+            $$->trues = Codigo.inilistaNumEmpty();
+            $$->falses = Codigo.inilistaNumEmpty();
             Codigo.anadirInstruccion($$->str + "=" + $1->str + "/" + $3->str);}
 
             | TID
             {$$->str = $1->str;
-            $$->trues = Codigo.inilista();
-            $$->falses = Codigo.inilista();}
+            $$->trues = Codigo.inilistaNumEmpty();
+            $$->falses = Codigo.inilistaNumEmpty();}
 
             | TINTEGER_CONST
             {$$->str = $1->str;
-            $$->trues = Codigo.inilista();
-            $$->falses = Codigo.inilista();}
+            $$->trues = Codigo.inilistaNumEmpty();
+            $$->falses = Codigo.inilistaNumEmpty();}
 
 
             | TFLOAT_CONST
             {$$->str = $1->str;
-            $$->trues = Codigo.inilista();
+            $$->trues =  Codigo.inilistaNumEmpty();
             $$->falses = Codigo.inilistaNumEmpty() ;}
 
 
