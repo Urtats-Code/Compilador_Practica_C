@@ -122,14 +122,14 @@ main_subprog : RPROCEDURE RMAIN {Codigo.anadirInstruccion("proc main");}
 arguments : TPARENTESIS_ABRIR param_list TPARENTESIS_CERRAR
             | %empty /* vacío */ /*{$$ = inilista();}*/
             ;
-param_list : id_list TDOSPUNTOS par_class type {Codigo.anadirargumentos($1, $3, $4);}
+param_list : id_list TDOSPUNTOS par_class type {Codigo.anadir_argumentos($1, $3, $4);}
             param_list_rem
             ;
 par_class : RIN {$$ = "val";}
             |ROUT {$$ = "ref";}
             |RIN ROUT {$$ = "ref";}
             ;
-param_list_rem : TSEMIC id_list TDOSPUNTOS par_class type {Codigo.anadirargumentos($2, $4, $5);}
+param_list_rem : TSEMIC id_list TDOSPUNTOS par_class type {Codigo.anadir_argumentos($2, $4, $5);}
                param_list_rem
                | %empty /* vacío */
                ;
@@ -195,8 +195,8 @@ expression : expression TIGUALQUE expression
 
             | expression TMENOR expression
             {$$->str = Codigo.nuevoId();
-            $$->trues = Codigo.inilistaNum(Codigo.obtenRef());
-            $$->falses = Codigo.inilistaNum(Codigo.obtenRef()+1);
+            $$->trues = Codigo.inilistaNum( &Codigo.obtenRef() );
+            $$->falses = Codigo.inilistaNum( &Codigo.obtenRef()+1 );
             Codigo.anadirInstruccion("if" + $1->str + ">" + "goto");
             Codigo.anadirInstruccion("goto");}
 
@@ -225,8 +225,8 @@ expression : expression TIGUALQUE expression
 
             | expression TDIFERENTEA expression
             {$$->str = Codigo.nuevoId();
-            $$->trues = Codigo.inilistaNum(Codigo.obtenRef());
-            $$->falses = Codigo.inilistaNum(Codigo.obtenRef()+1);
+            $$->trues = Codigo.inilistaNum( Codigo.obtenRef() );
+            $$->falses = Codigo.inilistaNum( Codigo.obtenRef()+1 );
             Codigo.anadirInstruccion("if" + $1->str + "/"+"=" + "goto");
             Codigo.anadirInstruccion("goto");}
 
