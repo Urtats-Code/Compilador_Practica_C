@@ -149,8 +149,7 @@ param_list_rem : TSEMIC id_list TDOSPUNTOS par_class type {Codigo.anadir_argumen
                param_list_rem
                | %empty /* vacío */
                ;
-statements : statements statement { $$->exits = Codigo.unir($1->exits, $2->exits);
-                                    $$->continues = Codigo.unir($1->continues, $2->continues); }
+statements : statements statement { }
             | %empty /* vacío */
             ;
 statement : variable TASSIG expression TSEMIC 
