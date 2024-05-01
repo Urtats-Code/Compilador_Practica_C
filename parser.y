@@ -110,8 +110,8 @@
 start : RPROGRAM TID { codigo.anadirInstruccion(  "prog "  + codigo.dollar_to_string( $2 )  ); } 
          block  {
                codigo.anadirInstruccion("halt");
-		         codigo.escribir() ; 
-               }
+		           codigo.escribir() ; 
+            }
       ;
       
 block : declarations {codigo.anadirInstruccion("call main");}
@@ -146,9 +146,9 @@ subprogs : subprogram subprogs
 procs : procs subprogram
             | %empty /* vacío */
             ;
-subprogram : RPROCEDURE TID arguments procs_block TLBRACE statements TRBRACE {codigo.anadirInstruccion("endproc" + codigo.dollar_to_string( $2 ) );}
+subprogram : RPROCEDURE TID arguments procs_block TLBRACE statements TRBRACE { codigo.anadirInstruccion("endproc" + codigo.dollar_to_string( $2 ) ); }
             ;
-main_subprog : RPROCEDURE RMAIN {codigo.anadirInstruccion("proc main");}
+main_subprog : RPROCEDURE RMAIN { codigo.anadirInstruccion("proc main"); }
             procs_block TLBRACE statements TRBRACE 
             ;
 arguments : TPARENTESIS_ABRIR param_list TPARENTESIS_CERRAR

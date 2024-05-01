@@ -5,4 +5,7 @@ program variables_float
         x = 3.14;
         y = 2.718;
         println(x * y);
+        println(x / y);
+        println(x + y);
+        println(x - y);
     }
