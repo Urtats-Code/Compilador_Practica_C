@@ -264,7 +264,7 @@ expression : expression TIGUALQUE expression
             } 
 
             | TID
-            { $$ = $1 ; }
+            { $$ -> str = *$1 ; }
 
             | TINTEGER_CONST
             { $$ = $1; }
