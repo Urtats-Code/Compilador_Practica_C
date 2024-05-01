@@ -87,14 +87,14 @@ int Codigo::obtenRef() const {
 	return instrucciones.size() + 1;
 }
 
-std::string unirStrings1(const char* c, const std::string& s) {
+std::string Codigo::unirStrings1(const char* c, const std::string& s) {
     string result;
     result.append(c);
     result.append(s);
     return result;
 }
 
- std::string dollar_to_string( std::string* s ){
+ std::string Codigo::dollar_to_string( std::string* s ){
 
   int i;
   printf( " Este es el texto que me introducen: %s \n\n\n\n\n\n\n\n\n\n", s );
