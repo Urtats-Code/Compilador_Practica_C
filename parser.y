@@ -228,7 +228,7 @@ expression : expression TIGUALQUE expression
               $$ = new expresionstruct; 
               *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
               $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
-              $$ -> falses = codigo.inilistaNum(codigo.obtenRef() + 1);
+              $$ -> falses = codigo.inilistaNum(codigo.obtenRef() );
               delete $1; delete $3;
             } 
 
@@ -292,8 +292,8 @@ expression : expression TIGUALQUE expression
             { 
               $$ = new expresionstruct; 
               *$$ = makearithmetic($1 -> str, *$2 , $3 -> str) ; 
-              $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
-              $$ -> falses = codigo.inilistaNum(codigo.obtenRef() + 1);
+              $$ -> trues = codigo.inilistaNum( codigo.obtenRef() );
+              $$ -> falses = codigo.inilistaNum( codigo.obtenRef() + 1 );
               delete $1; delete $3;
             } 
 
