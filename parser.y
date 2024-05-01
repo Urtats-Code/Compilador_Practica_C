@@ -11,12 +11,9 @@
 
    extern int yylex();
    extern int yylineno;
-   extern char *yytext;
+   extern string yytext;
    extern int yyerrornum;
-   void yyerror (const char *msg) {
-     cout << "line " << yylineno <<": " << msg << " at token " << yytext << endl ;
-     yyerrornum++;
-   }
+
 
    #include "Codigo.hpp"
    #include "Exp.hpp"
