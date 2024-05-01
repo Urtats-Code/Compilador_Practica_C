@@ -131,6 +131,17 @@ vector<int> Codigo::inilistaNum(int &num) {
 }
 
 /************/
+/* inilistaNumEmpty */
+/************/
+
+vector<int> Codigo::inilistaNumEmpty( ) {
+
+  vector<int> v = {};
+  return v;
+
+}
+
+/************/
 /* anadirStr*/
 /************/
 vector<string> Codigo::anadirStr( vector<string> &lista, string &nombre ) {
