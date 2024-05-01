@@ -1,9 +1,10 @@
+%define parse.error verbose
+
 %{
    #include <stdio.h>
    #include <iostream>
-   #include <string>
    #include <vector>
-
+   #include <string>
    using namespace std; 
 
    extern int yylex();
@@ -25,9 +26,10 @@
 /* 
    qué atributos tienen los tokens 
 */
+
 %union {
-   std::string *str ; 
-   std::vector<std::string> *list ;
+   string *str ; 
+   vector<string> *list ;
    expresionstruct *expr ;
    sentences *sentc ;
    int number ;
