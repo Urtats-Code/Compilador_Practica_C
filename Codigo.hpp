@@ -6,7 +6,9 @@
 #include <fstream>
 #include <set>
 #include <vector>
-#include <string>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 /* Estructura de datos para el código generado. El código, en vez de escribirlo directamente,
  * se guarda en esta estructura y, al final, se escribirán en un fichero.
