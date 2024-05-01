@@ -169,7 +169,7 @@ statements : statements statement { }
             | %empty /* vacío */
             ;
 statement : variable TASSIG expression TSEMIC 
-            { codigo.anadirInstruccion( *$1 + *$2 + $3 -> str + *$4 )  ; }
+            { codigo.anadirInstruccion( *$1 + *$2 + $3 -> str + ";" )  ; }
 
             | RIF expression TDOSPUNTOS TLBRACE M statements M TRBRACE TSEMIC
             {}
