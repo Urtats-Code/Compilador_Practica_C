@@ -101,7 +101,7 @@
 
 %%
 
-start : RPROGRAM TID { codigo.anadirInstruccion( "prog"  +  $2  ); } 
+start : RPROGRAM TID { codigo.anadirInstruccion( codigo.unirStrings1( &( "prog" )  +  $2 )  ); } 
          block  {
                codigo.anadirInstruccion("halt");
 		         codigo.escribir() ; 
