@@ -140,7 +140,7 @@ statements : statements statement {$$->exits = Codigo.unir($1->exits, $2->exits)
 statement : variable TASSIG expression TSEMIC 
             {Codigo.anadirInstruccion($1 + " = " + $3->str);
             $$->exits = inilista();
-            $$->continues = inilista();}
+            $$->continues = inilistaNumEmpty();}
 
             | RIF expression TDOSPUNTOS TLBRACE M statements M TRBRACE TSEMIC
             {Codigo.completar($2->trues, $5);
@@ -174,14 +174,14 @@ statement : variable TASSIG expression TSEMIC
 
             | RREAD TPARENTESIS_ABRIR variable TPARENTESIS_CERRAR TSEMIC
             {Codigo.anadirInstruccion("read" + $3);
-               $$->continues = inilista();
-               $$->exits = inilista();}
+               $$->continues = inilistaNumEmpty();
+               $$->exits = inilistaNumEmpty();}
 
 
             | RPRINTLN TPARENTESIS_ABRIR expression TPARENTESIS_CERRAR TSEMIC
             {Codigo.anadirInstruccion("read" + $3->str);
-               $$->continues = inilista();
-               $$->exits = inilista();}
+               $$->continues = inilistaNumEmpty();
+               $$->exits = inilistaNumEmpty();}
 
             ;
 variable : TID {$$ = $1->str;}
