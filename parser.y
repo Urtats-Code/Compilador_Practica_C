@@ -190,7 +190,7 @@ statement : variable TASSIG expression TSEMIC
                $$->exits = Codigo.inilistaNumEmpty();}
 
             ;
-variable : TID {$$ = $1 ;}
+variable : TID { $$ = $1 ;}
          ;
 expression : expression TIGUALQUE expression
             {$$->str = Codigo.nuevoId();
@@ -272,7 +272,7 @@ expression : expression TIGUALQUE expression
 
 
             | TFLOAT_CONST
-            { $$  = $1 ;
+            { $$ -> str  = $1 ;
             $$->trues =  Codigo.inilistaNumEmpty();
             $$->falses = Codigo.inilistaNumEmpty() ;}
 
