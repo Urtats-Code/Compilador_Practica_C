@@ -296,31 +296,31 @@ expression : expression TIGUALQUE expression
             | TID
             { 
               $$ -> str = *$1 ; 
-              $$ -> trues = new vector<int>;
-              $$ -> falses = new vector<int>;
+              $$ -> trues = new vector<int>*;
+              $$ -> falses = new vector<int>*;
             }
 
             | TINTEGER_CONST
             { 
               $$ -> str = *$1; 
-              $$ -> trues = new vector<int>;
-              $$ -> falses = new vector<int>;
+              $$ -> trues = new vector<int>*;
+              $$ -> falses = new vector<int>*;
             }
 
 
             | TFLOAT_CONST
             { 
               $$ -> str = *$1; 
-              $$ -> trues = new vector<int>;
-              $$ -> falses = new vector<int>;
+              $$ -> trues = new vector<int>*;
+              $$ -> falses = new vector<int>*;
             }
 
 
             | TPARENTESIS_ABRIR expression TPARENTESIS_CERRAR
             { 
               $$ = $2; 
-              $$ -> trues = new vector<int>;
-              $$ -> falses = new vector<int>;
+              $$ -> trues = new vector<int>*;
+              $$ -> falses = new vector<int>*;
             }
 
 
