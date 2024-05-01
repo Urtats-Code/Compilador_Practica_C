@@ -2,7 +2,7 @@
 #define EXP_HPP_
 
 struct expresionstruct {
-  std::string str;
+  std::string *str;
   std::vector<int> trues;
   std::vector<int> falses;
 };
