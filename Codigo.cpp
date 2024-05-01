@@ -94,16 +94,21 @@ std::string Codigo::unirStrings1(const char* c, const std::string& s) {
     return result;
 }
 
- std::string Codigo::dollar_to_string( std::string* s ){
+std::string Codigo::dollar_to_string(std::string* s) {
+    if (s == nullptr) { 
+        // Handle potential null pointer
+        return ""; // Or throw an exception if appropriate
+    }
 
-  int i;
-  printf( " Este es el texto que me introducen: %s \n\n\n\n\n\n\n\n\n\n", *s );
+    std::string result = *s; // Dereference the pointer to get the string
+    
+    // Perform your dollar-replacement logic on 'result'
+    // ...
 
-  for( i = 0 ;  i != NULL  ; i++){
-    printf( "%s", s[ i ]);
-  }
+    printf( "%s", s);
 
- }
+    return result;
+}
 /////////////////////////////////////////////7
 /* NUEVAS FUNCIONES AÑADIDAS */
 /////////////////////////////////////////////7
