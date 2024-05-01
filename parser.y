@@ -120,7 +120,7 @@ procs_block : declarations
                procs
             ;
 declarations : RVAR id_list TDOSPUNTOS type TSEMIC { 
-                  codigo.anadirDeclaraciones( $2 , $4 ) ;
+                  codigo.anadirDeclaraciones( *$2 , *$4 ) ;
                    delete $2; delete $4 ;
                 }
             declarations 
