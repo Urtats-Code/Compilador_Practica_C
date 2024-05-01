@@ -295,6 +295,7 @@ expression : expression TIGUALQUE expression
 
             | TID
             { 
+              $$ = new expresionstruct; 
               $$ -> str = *$1 ; 
               $$ -> trues = new vector<int>;
               $$ -> falses = new vector<int>;
@@ -302,6 +303,7 @@ expression : expression TIGUALQUE expression
 
             | TINTEGER_CONST
             { 
+              $$ = new expresionstruct; 
               $$ -> str = *$1; 
               $$ -> trues = new vector<int>;
               $$ -> falses = new vector<int>;
@@ -310,6 +312,7 @@ expression : expression TIGUALQUE expression
 
             | TFLOAT_CONST
             { 
+              $$ = new expresionstruct; 
               $$ -> str = *$1; 
               $$ -> trues = new vector<int>;
               $$ -> falses = new vector<int>;
@@ -318,6 +321,7 @@ expression : expression TIGUALQUE expression
 
             | TPARENTESIS_ABRIR expression TPARENTESIS_CERRAR
             { 
+              $$ = new expresionstruct; 
               $$ = $2; 
               $$ -> trues = new vector<int>;
               $$ -> falses = new vector<int>;
@@ -326,15 +330,15 @@ expression : expression TIGUALQUE expression
 
             ;
 
-M:  %empty { $$ = codigo.codigo.obtenRef() ; }
+M:  %empty { $$ = codigo.obtenRef() ; }
 	;
 
 %%
 
 expresionstruct makecomparison(std::string s1, std::string s2, std::string s3) {
   expresionstruct tmp ; 
-  tmp.trues.push_back(codigo.codigo.obtenRef()) ;
-  tmp.falses.push_back(codigo.codigo.obtenRef()+1) ;
+  tmp.trues.push_back(codigo.obtenRef()) ;
+  tmp.falses.push_back(codigo.obtenRef()+1) ;
   codigo.anadirInstruccion("if " + s1 + s2 + s3 + " goto") ;
   codigo.anadirInstruccion("goto") ;
   return tmp ;
