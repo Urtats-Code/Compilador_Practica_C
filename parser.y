@@ -127,12 +127,12 @@ declarations : RVAR id_list TDOSPUNTOS type TSEMIC {
              | %empty /* vacío */
              ;
 id_list : TID id_list_rem { $$ = new vector<string> ; 
-                            $$ -> push_back( $1 ); 
+                            $$ -> push_back( *$1 ); 
                             }
         ;
 id_list_rem : TCOMA TID id_list_rem  {  
                               $$ = $3 ;
-                              $$->push_back( $2 ); 
+                              $$ -> push_back( *$2 ); 
                           }
             | %empty { $$ = new vector<string>; } /* vacío */ 
             ;
