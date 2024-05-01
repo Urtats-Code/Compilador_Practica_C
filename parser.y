@@ -120,8 +120,8 @@ id_list : TID id_list_rem {$$ = Codigo.anadirStr($$,$1);}
 id_list_rem : TCOMA TID id_list_rem {$$ = Codigo.anadirStr($$->list,$2->str); $$ = Codigo.unir($$,$3)}
             | %empty /* vacío */ {$$ = Codigo.inilista();}
             ;
-type : RINTEGER {$$ = "int";}
-      | RFLOAT {$$= "real";}
+type : RINTEGER { $$ = "int"; }
+      | RFLOAT { $$= "real"; }
       ;
 subprogs : subprogram subprogs
             | main_subprog
@@ -129,7 +129,7 @@ subprogs : subprogram subprogs
 procs : procs subprogram
             | %empty /* vacío */
             ;
-subprogram : RPROCEDURE TID {Codigo.anadirInstruccion("proc" + $2->str);}
+subprogram : RPROCEDURE TID { Codigo.anadirInstruccion("proc" + &$2 ); }
             arguments procs_block TLBRACE statements TRBRACE {Codigo.anadirInstruccion("endproc" + $2->str);}
             ;
 main_subprog : RPROCEDURE RMAIN {Codigo.anadirInstruccion("proc main");}
