@@ -1,18 +1,22 @@
-#include <stdio.h>
-#include <iostream>
-extern int yyparse();
-using namespace std;
+#ifndef EXP_HPP_
+#define EXP_HPP_
 
-int yyerrornum = 0;
 
-int main(int argc, char **argv)
-{
-  cout << "ha comenzado..." << endl << endl ;
-   if (yyparse() == 0 && yyerrornum == 0) { 
-    cout << "ha finalizado BIEN..." << endl << endl ;
-  }
-  else {
-    cout << "ha finalizado MAL..." << endl << endl ;
-  }
-  return 0;
-}
+// struct expresionstruct {
+//   string str ;
+//   vector<int> trues ;
+//   vector<int> falses ;
+// };
+
+struct expresionstruct {
+  string str;
+  vector<int> trues;
+  vector<int> falses;
+};
+
+struct sentences{
+  vector<int> exits;
+  vector<int> continues;
+}; 
+
+#endif /* EXP_HPP_ */

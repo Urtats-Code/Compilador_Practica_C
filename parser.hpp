@@ -54,45 +54,44 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    RPROGRAM = 258,                /* RPROGRAM  */
-    RPROCEDURE = 259,              /* RPROCEDURE  */
-    RMAIN = 260,                   /* RMAIN  */
-    RVAR = 261,                    /* RVAR  */
-    RINTEGER = 262,                /* RINTEGER  */
-    RFLOAT = 263,                  /* RFLOAT  */
-    RIN = 264,                     /* RIN  */
-    ROUT = 265,                    /* ROUT  */
-    RIF = 266,                     /* RIF  */
-    RWHILE = 267,                  /* RWHILE  */
-    RCONTINUE = 268,               /* RCONTINUE  */
-    RFINALLY = 269,                /* RFINALLY  */
-    RFOREVER = 270,                /* RFOREVER  */
-    RBREAK = 271,                  /* RBREAK  */
-    RREAD = 272,                   /* RREAD  */
-    RPRINTLN = 273,                /* RPRINTLN  */
-    TSEMIC = 274,                  /* TSEMIC  */
-    TASSIG = 275,                  /* TASSIG  */
-    TDOSPUNTOS = 276,              /* TDOSPUNTOS  */
-    TCOMA = 277,                   /* TCOMA  */
-    TLBRACE = 278,                 /* TLBRACE  */
-    TRBRACE = 279,                 /* TRBRACE  */
-    TPARENTESIS_ABRIR = 280,       /* TPARENTESIS_ABRIR  */
-    TPARENTESIS_CERRAR = 281,      /* TPARENTESIS_CERRAR  */
-    TSUMA = 282,                   /* TSUMA  */
-    TRESTA = 283,                  /* TRESTA  */
-    TMULTIPLICACION = 284,         /* TMULTIPLICACION  */
-    TDIVISION = 285,               /* TDIVISION  */
-    TMENOR = 286,                  /* TMENOR  */
-    TMAYOR = 287,                  /* TMAYOR  */
-    TMENOROIGUAL = 288,            /* TMENOROIGUAL  */
-    TMAYOROIGUAL = 289,            /* TMAYOROIGUAL  */
-    TDIFERENTEA = 290,             /* TDIFERENTEA  */
-    TIGUALQUE = 291,               /* TIGUALQUE  */
-    TID = 292,                     /* TID  */
-    TINTEGER_CONST = 293,          /* TINTEGER_CONST  */
-    TFLOAT_CONST = 294,            /* TFLOAT_CONST  */
-    TCOMENTARIO_MULTILINEA = 295,  /* TCOMENTARIO_MULTILINEA  */
-    TCOMENTARIO_LINEA = 296        /* TCOMENTARIO_LINEA  */
+    TID = 258,                     /* TID  */
+    TFLOAT_CONST = 259,            /* TFLOAT_CONST  */
+    TINTEGER_CONST = 260,          /* TINTEGER_CONST  */
+    TCOMENTARIO_LINEA = 261,       /* TCOMENTARIO_LINEA  */
+    TIGUALQUE = 262,               /* TIGUALQUE  */
+    TMENOR = 263,                  /* TMENOR  */
+    TMENOROIGUAL = 264,            /* TMENOROIGUAL  */
+    TMAYOR = 265,                  /* TMAYOR  */
+    TMAYOROIGUAL = 266,            /* TMAYOROIGUAL  */
+    TDIFERENTEA = 267,             /* TDIFERENTEA  */
+    TSUMA = 268,                   /* TSUMA  */
+    TRESTA = 269,                  /* TRESTA  */
+    TMULTIPLICACION = 270,         /* TMULTIPLICACION  */
+    TDIVISION = 271,               /* TDIVISION  */
+    TASSIG = 272,                  /* TASSIG  */
+    TPARENTESIS_ABRIR = 273,       /* TPARENTESIS_ABRIR  */
+    TPARENTESIS_CERRAR = 274,      /* TPARENTESIS_CERRAR  */
+    TLBRACE = 275,                 /* TLBRACE  */
+    TRBRACE = 276,                 /* TRBRACE  */
+    TDOSPUNTOS = 277,              /* TDOSPUNTOS  */
+    TSEMIC = 278,                  /* TSEMIC  */
+    TCOMA = 279,                   /* TCOMA  */
+    RPROGRAM = 280,                /* RPROGRAM  */
+    RPROCEDURE = 281,              /* RPROCEDURE  */
+    RMAIN = 282,                   /* RMAIN  */
+    RVAR = 283,                    /* RVAR  */
+    RINTEGER = 284,                /* RINTEGER  */
+    RFLOAT = 285,                  /* RFLOAT  */
+    RIN = 286,                     /* RIN  */
+    ROUT = 287,                    /* ROUT  */
+    RIF = 288,                     /* RIF  */
+    RWHILE = 289,                  /* RWHILE  */
+    RCONTINUE = 290,               /* RCONTINUE  */
+    RFINALLY = 291,                /* RFINALLY  */
+    RFOREVER = 292,                /* RFOREVER  */
+    RBREAK = 293,                  /* RBREAK  */
+    RREAD = 294,                   /* RREAD  */
+    RPRINTLN = 295                 /* RPRINTLN  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -101,13 +100,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 25 "parser.y"
+#line 31 "parser.y"
 
-   string *str ; 
-   vector<string> *list ;
-   expresionstruct *expr ;
-   int number ;
-   vector<int> *numlist; 
+    string *str ; 
+    vector<string> *list ;
+    expresionstruct *expr ;
+    sentences *sentc ;
+    int number ;
+    vector<int> *numlist ;
 
 #line 113 "parser.hpp"
 

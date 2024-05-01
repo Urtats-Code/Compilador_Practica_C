@@ -2,6 +2,11 @@
 #define EXP_HPP_
 
 
+// struct expresionstruct {
+//   string str ;
+//   vector<int> trues ;
+//   vector<int> falses ;
+// };
 
 struct expresionstruct {
   string str;

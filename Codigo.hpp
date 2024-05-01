@@ -1,86 +1,200 @@
-#ifndef CODIGO_HPP_
-#define CODIGO_HPP_
+#include "Codigo.hpp"
 
-#include <iostream>
-#include <sstream>
-#include <fstream>
-#include <set>
-#include <vector>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
+using namespace std;
 
-/* Estructura de datos para el código generado. El código, en vez de escribirlo directamente,
- * se guarda en esta estructura y, al final, se escribirán en un fichero.
- */
-class Codigo {
+/****************/
+/* Constructora */
+/****************/
 
-private:
+Codigo::Codigo() {
+  siguienteId = 1;
+}
 
-    /**************************/
-    /* REPRESENTACION INTERNA */
-    /**************************/
+/***********/
+/* nuevoId */
+/***********/
 
-    /* Instrucciones que forman el código. */
-    std::vector<std::string> instrucciones;
+string Codigo::nuevoId() {
+  string nId("%t");
+  nId += to_string(siguienteId++);
+  return nId;
+}
 
-    /* Clave para generar identificaciones nuevos. Cada vez que se crea un id se incrementa. */
-    int siguienteId;
+/*********************/
+/* anadirInstruccion */
+/*********************/
 
+void Codigo::anadirInstruccion(const string &instruccion) {
+  string cadena;
+  cadena = to_string(obtenRef()) + ": " + instruccion;
+  instrucciones.push_back(cadena);
+}
 
-public:
+/***********************/
+/* anadirDeclaraciones */
+/***********************/
 
-    /************************************/
-    /* METODOS PARA GESTIONAR EL CODIGO */
-    /************************************/
+void Codigo::anadirDeclaraciones(const vector<string> &idNombres, const string &tipoNombre) {
+  vector<string>::const_iterator iter;
+  for (iter=idNombres.begin(); iter!=idNombres.end(); iter++) {
+    anadirInstruccion(tipoNombre + " " + *iter);
+  }
+}
 
-    /* Constructora */
-    Codigo();
+/*********************/
+/* anadirParametros  */
+/*********************/
 
-    /* Crea un nuevo identificador del tipo "%t1, %t2, ...", siempre diferente. */
-    std::string nuevoId();
-
-    /* Añade una nueva instrucción a la estructura. */
-    void anadirInstruccion(const std::string &instruccion);
-
-    /* Dada una lista de variables y su tipo, crea y añade las instrucciones de declaración */
-    void anadirDeclaraciones(const std::vector<std::string> &idNombres, const std::string &tipoNombre);
-
-    /* Dada una lista de parámetros y su tipo, crea y añade las instrucciones de declaración */
-    void anadirParametros(const std::vector<std::string> &idNombres, const std::string &pClase, const std::string &pTipo);
-
-    /* Añade a las instrucciones que se especifican la referencia que les falta.
-     * Por ejemplo: "goto" => "goto 20" */
-    void completarInstrucciones(std::vector<int> &numerosInstrucciones, const int referencia);
-
-    /* Escribe las instrucciones acumuladas en la estructura en el fichero de salida, con su punto y coma al final. */
-    void escribir() const;
-
-    /* Devuelve el número de la siguiente instrucción. */
-    int obtenRef() const;
-
-    /* Por cada variable a la lista de entrada, empezando por el primero y hasta el último añade una instrucción teniendo en cuenta el par_class y el type.*/
-    void anadir_argumentos(const std::vector<std::string> &listaArgumentos, const std::string &pClase, const std::string &pTipo);
-
-    /* Crea una lista vacía */
-    std::vector<std::string> inilista();
-
-    /* Crea una lista vacía cuyo primer y único elemento es “num”. */
-    std::vector<int> inilistaNum(int num);
-
-    /* Añade el nombre al comienzo de la lista de strings de entrada y devuelve la nueva lista. */
-    std::vector<std::string> anadirStr(std::vector<std::string> &lista, std::string &nombre);
-
-    /* Añade el numero al comienzo de la lista de numeros de entrada y devuelve la nueva lista. */
-    std::vector<int> anadirInt(std::vector<int> &lista, int &num);
-
-    /* Junta en una sola lista de integers las dos listas de integers que se le han pasado */
-    std::vector<int> unirInt(const std::vector<int> &lista1, const std::vector<int> &lista2);
-
-    std::vector<int> inilistaNumEmpty( );
+void Codigo::anadirParametros(const vector<string> &idNombres, const std::string &clase, const string &tipoNombre) {
+  vector<string>::const_iterator iter;
+  for (iter=idNombres.begin(); iter!=idNombres.end(); iter++) {
+    	anadirInstruccion(clase + "_" + tipoNombre  + " " + *iter );
+  }
+}
 
 
+/**************************/
+/* completarInstrucciones */
+/**************************/
 
-};
+void Codigo::completarInstrucciones(vector<int> &numInstrucciones, const int valor) {
+  string referencia = " " + to_string(valor) ;
+  vector<int>::iterator iter;
+ 
+  for (iter = numInstrucciones.begin(); iter != numInstrucciones.end(); iter++) {
+    instrucciones[*iter-1].append(referencia);
+  }
+}
 
-#endif /* CODIGO_HPP_ */
+/************/
+/* escribir */
+/************/
+
+void Codigo::escribir() const {
+  vector<string>::const_iterator iter;
+  for (iter = instrucciones.begin(); iter != instrucciones.end(); iter++) {
+    cout << *iter << endl;
+  }
+}
+
+
+/************/
+/* obtenRef */
+/************/
+
+int Codigo::obtenRef() const {
+	return instrucciones.size() + 1;
+}
+
+/////////////////////////////////////////////7
+/* NUEVAS FUNCIONES AÑADIDAS */
+/////////////////////////////////////////////7
+
+/*********************/
+/* unirStrings1 */
+/*********************/
+
+// string Codigo::unirStrings1( char *c, string *s ){
+
+//   int i; 
+//   std::string result[ sizeof( c ) + sizeof( s ) ] = { "a" }; 
+
+//   for( i = 0 ; i < sizeof( c ) ; i ++ )
+//     result[ i ] = c[ i ];
+
+//   for( i = 0 ; i < sizeof( s ) ; i ++ )
+//     result[ i ] = s[ i ];
+
+//   return &result;
+
+// }
+
+// /************/
+// /* anadir_argumentos */
+// /************/
+
+// void Codigo::anadir_argumentos(const vector<string> &listaArgumentos, const string &pClase, const string &pTipo ) {
+
+//   vector<string>::const_iterator string_iter;
+
+//   string EMPTY_STRING = " ";
+//   string LOW_BAR = "_";
+
+//   for (string_iter=listaArgumentos.begin(); string_iter!=listaArgumentos.end(); string_iter++) {
+
+//     string name = pClase + LOW_BAR +  pTipo;
+//     string cadena =  name + EMPTY_STRING +  *string_iter;
+//     anadirInstruccion( *string_iter );
+//   }
+
+// }
+
+// /************/
+// /* inilista*/
+// /************/
+
+// vector<string> Codigo::inilista() {
+
+//   std::vector<string>  v = {};
+//   return v;
+
+// }
+
+// /************/
+// /* inilistaNum */
+// /************/
+
+// vector<int> Codigo::inilistaNum(int num) {
+
+//   vector<int> v = {};
+//   v.push_back( num );
+//   return v;
+
+// }
+
+// /************/
+// /* inilistaNumEmpty */
+// /************/
+
+// vector<int> Codigo::inilistaNumEmpty( ) {
+
+//   vector<int> v = {};
+//   return v;
+
+// }
+
+// /************/
+// /* anadirStr*/
+// /************/
+// vector<string> Codigo::anadirStr( vector<string> &lista, string &nombre ) {
+//     lista.push_back( nombre );
+//     return lista;
+// }
+
+// /************/
+// /* anadirInt*/
+// /************/
+// vector<int> Codigo::anadirInt( vector<int> &lista, int &num ) {
+//     lista.push_back( num );
+//     return lista;
+// }
+
+
+// /************/
+// /* unirInt*/
+// /************/
+// vector<int> Codigo::unirInt(const vector<int> &lista1, const vector<int> &lista2) {
+//     vector<int> resultado;
+
+//     // Agregar elementos de la primera lista
+//     for (int num : lista1) {
+//         resultado.push_back(num);
+//     }
+
+//     // Agregar elementos de la segunda lista
+//     for (int num : lista2) {
+//         resultado.push_back(num);
+//     }
+
+//     return resultado;
+// }

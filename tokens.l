@@ -11,11 +11,12 @@
 
  #define TOKEN(t) yylval.str = new std::string(yytext, yyleng) ; return t 
  extern "C" int yywrap() { return(1) ; }  
- extern int yyerror(const char *);
-
 %}
 
 %%
+
+\/\/.+\n                ;
+
 program                 TOKEN(RPROGRAM) ;
 procedure		        TOKEN(RPROCEDURE) ;
 main			        TOKEN(RMAIN) ;
@@ -33,6 +34,11 @@ break                   TOKEN(RBREAK);
 read                    TOKEN(RREAD); 
 println                 TOKEN(RPRINTLN); 
 
+[a-zA-Z](_?[a-zA-Z0-9$])*_?                                     TOKEN(TID); 
+(([1-9][0-9]*)|0)\.[0-9]+([Ee][+-]?(([1-9][0-9]*)|0))?          TOKEN(TFLOAT_CONST); 
+(([1-9][0-9]*)|0)                                               TOKEN(TINTEGER_CONST); 
+#!.*\n                                                          TOKEN(TCOMENTARIO_LINEA);
+
 
 "="                      TOKEN(TASSIG);
 ";"                      TOKEN(TSEMIC);
@@ -49,19 +55,17 @@ println                 TOKEN(RPRINTLN);
 "/"                      TOKEN(TDIVISION);
 "<"                      TOKEN(TMENOR);
 ">"                      TOKEN(TMAYOR);
-"<""="                   TOKEN(TMENOROIGUAL);
-">""="                   TOKEN(TMAYOROIGUAL);
-"/""="                   TOKEN(TDIFERENTEA);
-"=""="                   TOKEN(TIGUALQUE);
+"<="                   TOKEN(TMENOROIGUAL);
+">="                   TOKEN(TMAYOROIGUAL);
+"/="                   TOKEN(TDIFERENTEA);
+"=="                   TOKEN(TIGUALQUE);
 
 
 [ \t\n]                 ;
 
 
-[a-zA-Z](_?[a-zA-Z0-9$])*_?                                     TOKEN(TID); 
-(([1-9][0-9]*)|0)\.[0-9]+([Ee][+-]?(([1-9][0-9]*)|0))?          TOKEN(TFLOAT_CONST); 
-(([1-9][0-9]*)|0)                                               TOKEN(TINTEGER_CONST); 
-\/\/                                                            TOKEN(TCOMENTARIO_MULTILINEA);
-#!.*\n                                                          TOKEN(TCOMENTARIO_LINEA);
-. { yyerror("Token desconocido: ");}
+
+.                       printf("Unknown token!\n"); yyterminate();
+
 %%
+

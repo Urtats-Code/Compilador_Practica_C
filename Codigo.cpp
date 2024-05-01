@@ -15,33 +15,10 @@ Codigo::Codigo() {
 /***********/
 
 string Codigo::nuevoId() {
-
   string nId("%t");
   nId += to_string(siguienteId++);
   return nId;
-
 }
-
-
-
-/*********************/
-/* anadirInstruccion */
-/*********************/
-
-// string Codigo::unirStrings1( char *c, string *s ){
-
-//   int i; 
-//   std::string result[ sizeof( c ) + sizeof( s ) ] = { "a" }; 
-
-//   for( i = 0 ; i < sizeof( c ) ; i ++ )
-//     result[ i ] = c[ i ];
-
-//   for( i = 0 ; i < sizeof( s ) ; i ++ )
-//     result[ i ] = s[ i ];
-
-//   return &result;
-
-// }
 
 /*********************/
 /* anadirInstruccion */
@@ -83,7 +60,7 @@ void Codigo::anadirParametros(const vector<string> &idNombres, const std::string
 void Codigo::completarInstrucciones(vector<int> &numInstrucciones, const int valor) {
   string referencia = " " + to_string(valor) ;
   vector<int>::iterator iter;
-
+ 
   for (iter = numInstrucciones.begin(); iter != numInstrucciones.end(); iter++) {
     instrucciones[*iter-1].append(referencia);
   }
@@ -109,93 +86,115 @@ int Codigo::obtenRef() const {
 	return instrucciones.size() + 1;
 }
 
+/////////////////////////////////////////////7
+/* NUEVAS FUNCIONES AÑADIDAS */
+/////////////////////////////////////////////7
 
-/************/
-/* anadir_argumentos */
-/************/
+/*********************/
+/* unirStrings1 */
+/*********************/
 
-void Codigo::anadir_argumentos(const vector<string> &listaArgumentos, const string &pClase, const string &pTipo ) {
+// string Codigo::unirStrings1( char *c, string *s ){
 
-  vector<string>::const_iterator string_iter;
+//   int i; 
+//   std::string result[ sizeof( c ) + sizeof( s ) ] = { "a" }; 
 
-  string EMPTY_STRING = " ";
-  string LOW_BAR = "_";
+//   for( i = 0 ; i < sizeof( c ) ; i ++ )
+//     result[ i ] = c[ i ];
 
-  for (string_iter=listaArgumentos.begin(); string_iter!=listaArgumentos.end(); string_iter++) {
+//   for( i = 0 ; i < sizeof( s ) ; i ++ )
+//     result[ i ] = s[ i ];
 
-    string name = pClase + LOW_BAR +  pTipo;
-    string cadena =  name + EMPTY_STRING +  *string_iter;
-    anadirInstruccion( *string_iter );
-  }
+//   return &result;
 
-}
+// }
 
-/************/
-/* inilista*/
-/************/
+// /************/
+// /* anadir_argumentos */
+// /************/
 
-vector<string> Codigo::inilista() {
+// void Codigo::anadir_argumentos(const vector<string> &listaArgumentos, const string &pClase, const string &pTipo ) {
 
-  std::vector<string>  v = {};
-  return v;
+//   vector<string>::const_iterator string_iter;
 
-}
+//   string EMPTY_STRING = " ";
+//   string LOW_BAR = "_";
 
-/************/
-/* inilistaNum */
-/************/
+//   for (string_iter=listaArgumentos.begin(); string_iter!=listaArgumentos.end(); string_iter++) {
 
-vector<int> Codigo::inilistaNum(int num) {
+//     string name = pClase + LOW_BAR +  pTipo;
+//     string cadena =  name + EMPTY_STRING +  *string_iter;
+//     anadirInstruccion( *string_iter );
+//   }
 
-  vector<int> v = {};
-  v.push_back( num );
-  return v;
+// }
 
-}
+// /************/
+// /* inilista*/
+// /************/
 
-/************/
-/* inilistaNumEmpty */
-/************/
+// vector<string> Codigo::inilista() {
 
-vector<int> Codigo::inilistaNumEmpty( ) {
+//   std::vector<string>  v = {};
+//   return v;
 
-  vector<int> v = {};
-  return v;
+// }
 
-}
+// /************/
+// /* inilistaNum */
+// /************/
 
-/************/
-/* anadirStr*/
-/************/
-vector<string> Codigo::anadirStr( vector<string> &lista, string &nombre ) {
-    lista.push_back( nombre );
-    return lista;
-}
+// vector<int> Codigo::inilistaNum(int num) {
 
-/************/
-/* anadirInt*/
-/************/
-vector<int> Codigo::anadirInt( vector<int> &lista, int &num ) {
-    lista.push_back( num );
-    return lista;
-}
+//   vector<int> v = {};
+//   v.push_back( num );
+//   return v;
+
+// }
+
+// /************/
+// /* inilistaNumEmpty */
+// /************/
+
+// vector<int> Codigo::inilistaNumEmpty( ) {
+
+//   vector<int> v = {};
+//   return v;
+
+// }
+
+// /************/
+// /* anadirStr*/
+// /************/
+// vector<string> Codigo::anadirStr( vector<string> &lista, string &nombre ) {
+//     lista.push_back( nombre );
+//     return lista;
+// }
+
+// /************/
+// /* anadirInt*/
+// /************/
+// vector<int> Codigo::anadirInt( vector<int> &lista, int &num ) {
+//     lista.push_back( num );
+//     return lista;
+// }
 
 
-/************/
-/* unirInt*/
-/************/
-vector<int> Codigo::unirInt(const vector<int> &lista1, const vector<int> &lista2) {
-    vector<int> resultado;
+// /************/
+// /* unirInt*/
+// /************/
+// vector<int> Codigo::unirInt(const vector<int> &lista1, const vector<int> &lista2) {
+//     vector<int> resultado;
 
-    // Agregar elementos de la primera lista
-    for (int num : lista1) {
-        resultado.push_back(num);
-    }
+//     // Agregar elementos de la primera lista
+//     for (int num : lista1) {
+//         resultado.push_back(num);
+//     }
 
-    // Agregar elementos de la segunda lista
-    for (int num : lista2) {
-        resultado.push_back(num);
-    }
+//     // Agregar elementos de la segunda lista
+//     for (int num : lista2) {
+//         resultado.push_back(num);
+//     }
 
-    return resultado;
-}
+//     return resultado;
+// }

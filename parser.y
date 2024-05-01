@@ -1,80 +1,91 @@
 %define parse.error verbose
 
 %{
-
    #include <stdio.h>
    #include <iostream>
    #include <vector>
    #include <string>
-
    using namespace std; 
 
    extern int yylex();
    extern int yylineno;
-   extern string *yytext;
-   extern int yyerrornum;
-
+   extern char *yytext;
    void yyerror (const char *msg) {
-     cout << "line " << yylineno <<": " << msg << " at token " << yytext << endl ;
-     yyerrornum++;
+     printf("line %d: %s at '%s'\n", yylineno, msg, yytext) ;
    }
-
 
    #include "Codigo.hpp"
    #include "Exp.hpp"
 
 
-
    expresionstruct makecomparison(std::string s1, std::string s2, std::string s3) ;
    expresionstruct makearithmetic(std::string s1, std::string s2, std::string s3) ;
-   
-   
 
-   // Añado la declaración de la función unir. Si la hacéis diferente, debéis cambiar esta declaración.
-   vector<int> *unir(vector<int> lis1, vector<int> lis2);   
-
-
-
-   Codigo Codigo;
+   Codigo codigo;
 
 %}
 
 /* 
-   qué atributos tienen los tokens 
+   qué atributos tienen los símbolos 
 */
-
 %union {
-   string *str ; 
-   vector<string> *list ;
-   expresionstruct *expr ;
-   sentences *sentc ;
-   int number ;
-   vector<int> *numlist; 
+    string *str ; 
+    vector<string> *list ;
+    expresionstruct *expr ;
+    sentences *sentc ;
+    int number ;
+    vector<int> *numlist ;
 }
+ 
+/*   declaración de tokens. Esto debe coincidir con tokens.l */
 
-/* 
-   declaración de tokens. Esto debe coincidir con tokens.l 
-*/
-/*PALABRAS RESERVADAS*/
-%token <str> RPROGRAM RPROCEDURE RMAIN
-%token <str> RVAR RINTEGER RFLOAT   
-%token <str> RIN ROUT
-%token <str> RIF RWHILE RCONTINUE RFINALLY RFOREVER RBREAK
-%token <str> RREAD RPRINTLN
+//Tokens definidos: id, integer, float/double...
+%token <str> TID TFLOAT_CONST TINTEGER_CONST TCOMENTARIO_LINEA
+/* %token TCOMENTARIO_MULTILINEA  */
 
-/*PARENTISIS, BRACKETS, ASIGNACIONES, DOS PUNTOS, LA COMA, COMPARACIONES, OPERADORES...*/
-%token <str> TSEMIC TASSIG TDOSPUNTOS TCOMA
-%token <str> TLBRACE TRBRACE 
-%token <str> TPARENTESIS_ABRIR TPARENTESIS_CERRAR
+// ==,<,<=,>,>=
+%token <str> TIGUALQUE TMENOR TMENOROIGUAL TMAYOR TMAYOROIGUAL TDIFERENTEA
+
+// +, -, *, /
 %token <str> TSUMA TRESTA TMULTIPLICACION TDIVISION
-%token <str> TMENOR TMAYOR TMENOROIGUAL TMAYOROIGUAL TDIFERENTEA TIGUALQUE
 
-/*DEFINICIONES*/
+// := TASSIG
+%token <str> TASSIG
 
-%token <str> TID TINTEGER_CONST TFLOAT_CONST TCOMENTARIO_MULTILINEA TCOMENTARIO_LINEA
 
-%start start
+/*	Estos tokens no tienen atributos:   */
 
+//Parentesis abrir, parentesis cerra, coma
+%token  TPARENTESIS_ABRIR TPARENTESIS_CERRAR
+
+//Llaves abrir, llaves cerrar
+%token  TLBRACE TRBRACE
+
+//Dos puntos, punto coma, coma
+%token  TDOSPUNTOS TSEMIC TCOMA
+
+//Palabras reservadas
+%token RPROGRAM RPROCEDURE RMAIN
+%token RVAR RINTEGER RFLOAT   
+%token RIN ROUT
+%token RIF RWHILE RCONTINUE RFINALLY RFOREVER RBREAK
+%token RREAD RPRINTLN
+
+/* 	Declaración de símbolos no terminales con atributos 	*/
+/* %type <str> par_class
+%type <str> type 
+%type <expr> expression
+
+%type <sentc> statement
+%type <sentc> statements
+%type <list> id_list
+%type <list> id_list_rem
+%type <list> arguments */
+
+%type <str> variable
+%type <number> M
+
+/*Aquí falta poner la asociatividad y precedencia de los operadores*/
 /*** Aquí se indica la prioridad y asociatividad de los operadores:
 ****  %nonassoc OP si OP no es asociativo, si solo puede aparecer una vez en la expresión
 ****  %left OP si OP es asociativo por la izda.
@@ -85,45 +96,34 @@
 %left TSUMA TRESTA 
 %left TMULTIPLICACION TDIVISION
 
-/* declaración de símbolos no terminales con atributos */
-
-%type <str> par_class
-%type <str> variable
-%type <str> type 
-%type <expr> expression
-%type <number> M
-%type <sentc> statement
-%type <sentc> statements
-%type <list> id_list
-%type <list> id_list_rem
-%type <list> arguments
+%start start
 
 %%
 
-start : RPROGRAM TID {Codigo.anadirInstruccion( &("prog" + $2) ) ;} 
+start : RPROGRAM TID {codigo.anadirInstruccion("program");} 
          block  {
-               Codigo.anadirInstruccion("halt");
-		         Codigo.escribir() ; 
+               codigo.anadirInstruccion("halt");
+		         codigo.escribir() ; 
                }
       ;
       
-block : declarations {Codigo.anadirInstruccion("call main");}
+block : declarations {codigo.anadirInstruccion("call main");}
          subprogs
       ;
 procs_block : declarations
                procs
             ;
-declarations : RVAR id_list TDOSPUNTOS type TSEMIC {Codigo.anadirDeclaraciones($2,$4);}
+declarations : RVAR id_list TDOSPUNTOS type TSEMIC {}
             declarations
              | %empty /* vacío */
              ;
-id_list : TID id_list_rem {$$ = Codigo.anadirStr($$,$1);}
+id_list : TID id_list_rem 
         ;
-id_list_rem : TCOMA TID id_list_rem {$$ = Codigo.anadirStr($$->list,$2->str); $$ = Codigo.unir($$,$3)}
-            | %empty /* vacío */ {$$ = Codigo.inilista();}
+id_list_rem : TCOMA TID id_list_rem 
+            | %empty /* vacío */ 
             ;
-type : RINTEGER { $$ = "int"; }
-      | RFLOAT { $$= "real"; }
+type : RINTEGER { }
+      | RFLOAT { }
       ;
 subprogs : subprogram subprogs
             | main_subprog
@@ -131,23 +131,23 @@ subprogs : subprogram subprogs
 procs : procs subprogram
             | %empty /* vacío */
             ;
-subprogram : RPROCEDURE TID { Codigo.anadirInstruccion("proc" + &$2 ); }
-            arguments procs_block TLBRACE statements TRBRACE {Codigo.anadirInstruccion("endproc" + $2->str);}
+subprogram : RPROCEDURE TID 
+            arguments procs_block TLBRACE statements TRBRACE {codigo.anadirInstruccion("endproc");}
             ;
-main_subprog : RPROCEDURE RMAIN {Codigo.anadirInstruccion("proc main");}
+main_subprog : RPROCEDURE RMAIN {codigo.anadirInstruccion("proc main");}
             procs_block TLBRACE statements TRBRACE 
             ;
 arguments : TPARENTESIS_ABRIR param_list TPARENTESIS_CERRAR
-            | %empty /* vacío */ /*{$$ = inilista();}*/
+            | %empty /* vacío */ 
             ;
-param_list : id_list TDOSPUNTOS par_class type {Codigo.anadir_argumentos($1, $3, $4);}
+param_list : id_list TDOSPUNTOS par_class type {}
             param_list_rem
             ;
-par_class : RIN {$$ = "val";}
-            |ROUT {$$ = "ref";}
-            |RIN ROUT {$$ = "ref";}
+par_class : RIN {}
+            |ROUT {}
+            |RIN ROUT {}
             ;
-param_list_rem : TSEMIC id_list TDOSPUNTOS par_class type {Codigo.anadir_argumentos($2, $4, $5);}
+param_list_rem : TSEMIC id_list TDOSPUNTOS par_class type {}
                param_list_rem
                | %empty /* vacío */
                ;
@@ -236,7 +236,26 @@ expression : expression TIGUALQUE expression
 
             ;
 
-M:  %empty { $$ = Codigo.obtenRef() ; }
+M:  %empty { $$ = codigo.obtenRef() ; }
 	;
 
 %%
+
+expresionstruct makecomparison(std::string s1, std::string s2, std::string s3) {
+  expresionstruct tmp ; 
+  tmp.trues.push_back(codigo.obtenRef()) ;
+  tmp.falses.push_back(codigo.obtenRef()+1) ;
+  codigo.anadirInstruccion("if " + s1 + s2 + s3 + " goto") ;
+  codigo.anadirInstruccion("goto") ;
+  return tmp ;
+}
+
+
+expresionstruct makearithmetic(std::string s1, std::string s2, std::string s3) {
+  expresionstruct tmp ; 
+  tmp.str = codigo.nuevoId() ;
+  codigo.anadirInstruccion(tmp.str + ":=" + s1 + s2 + s3 + ";") ;     
+  return tmp ;
+}
+
+
