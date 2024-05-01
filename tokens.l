@@ -60,7 +60,7 @@ println                 TOKEN(RPRINTLN);
 [a-zA-Z](_?[a-zA-Z0-9$])*_?                                     TOKEN(TID); 
 (([1-9][0-9]*)|0)\.[0-9]+([Ee][+-]?(([1-9][0-9]*)|0))?          TOKEN(TFLOAT_CONST); 
 (([1-9][0-9]*)|0)                                               TOKEN(TINTEGER_CONST); 
-// \/\/([^\/]|\/[^\/])*\/\/                                        TOKEN(TCOMENTARIO_MULTILINEA);
+\/\/                                                            TOKEN(TCOMENTARIO_MULTILINEA);
 #!.*\n                                                          TOKEN(TCOMENTARIO_LINEA);
 
 %%
