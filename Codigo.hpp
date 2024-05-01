@@ -77,7 +77,7 @@ public:
     /* Junta en una sola lista de integers las dos listas de integers que se le han pasado */
     std::vector<int> unirInt(const std::vector<int> &lista1, const std::vector<int> &lista2);
 
-    std::vector<int> Codigo::inilistaNumEmpty( );
+    std::vector<int> inilistaNumEmpty( );
 
 };
 
