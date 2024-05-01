@@ -131,7 +131,7 @@ id_list : TID id_list_rem { $$ = new vector<string> ;
                             }
         ;
 id_list_rem : TCOMA TID id_list_rem  {  
-                              $$ = $1 ;
+                              $$ = $3 ;
                               $$->push_back( $2 ); 
                           }
             | %empty { $$ = new vector<string>; } /* vacío */ 
