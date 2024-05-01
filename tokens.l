@@ -11,6 +11,7 @@
 
  #define TOKEN(t) yylval.str = new std::string(yytext, yyleng) ; return t 
  extern "C" int yywrap() { return(1) ; }  
+ extern int yyerror(const char *);
 
 %}
 
@@ -62,5 +63,5 @@ println                 TOKEN(RPRINTLN);
 (([1-9][0-9]*)|0)                                               TOKEN(TINTEGER_CONST); 
 \/\/                                                            TOKEN(TCOMENTARIO_MULTILINEA);
 #!.*\n                                                          TOKEN(TCOMENTARIO_LINEA);
-
+. { yyerror("Token desconocido: ");}
 %%

@@ -14,14 +14,22 @@
    extern string *yytext;
    extern int yyerrornum;
 
+   void yyerror (const char *msg) {
+     cout << "line " << yylineno <<": " << msg << " at token " << yytext << endl ;
+     yyerrornum++;
+   }
+
 
    #include "Codigo.hpp"
    #include "Exp.hpp"
+
+
 
    expresionstruct makecomparison(std::string s1, std::string s2, std::string s3) ;
    expresionstruct makearithmetic(std::string s1, std::string s2, std::string s3) ;
    
    
+
    // Añado la declaración de la función unir. Si la hacéis diferente, debéis cambiar esta declaración.
    vector<int> *unir(vector<int> lis1, vector<int> lis2);
 
