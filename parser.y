@@ -184,7 +184,7 @@ statement : variable TASSIG expression TSEMIC
                $$->exits = Codigo.inilistaNumEmpty();}
 
             ;
-variable : TID {$$ = $1->str;}
+variable : TID {$$ = $1 ;}
          ;
 expression : expression TIGUALQUE expression
             {$$->str = Codigo.nuevoId();
