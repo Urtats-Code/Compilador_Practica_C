@@ -224,7 +224,7 @@ expression : expression TIGUALQUE expression
             { }
 
             | expression TRESTA expression
-            {  $$ = makearithmetic($1 -> str, *$2 , $3 -> str) ; } 
+            {  *$$ = makearithmetic($1 -> str, *$2 , $3 -> str) ; } 
 
             | expression TMULTIPLICACION expression
             {}
