@@ -268,7 +268,7 @@ expression : expression TIGUALQUE expression
             | TFLOAT_CONST
             {$$->str = $1->str;
             $$->trues = Codigo.inilista();
-            $$->falses = new std::vector<int>;}
+            $$->falses = new std::vector<int>();}
 
 
             | TPARENTESIS_ABRIR expression TPARENTESIS_CERRAR
