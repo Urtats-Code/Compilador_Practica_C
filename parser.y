@@ -117,7 +117,7 @@ block : declarations {codigo.anadirInstruccion("call main");}
 procs_block : declarations
                procs
             ;
-declarations : RVAR id_list TDOSPUNTOS type TSEMIC { codigo.anadirDeclaraciones( *$2 , *$4 ) }
+declarations : RVAR id_list TDOSPUNTOS type TSEMIC { codigo.anadirDeclaraciones( $2 , $4 ) }
             declarations 
              | %empty /* vacío */
              ;
