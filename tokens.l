@@ -1,17 +1,15 @@
-%option yylineno 
+%option yylineno
 %option nounput
 
 %{
  #include <string>
- #include <iostream>
  #include <vector>
  #include <algorithm>
- using namespace std;
+ using namespace std ;
  #include "Exp.hpp"
- #include "parser.hpp" 
+ #include "parser.hpp"
 
  #define TOKEN(t) yylval.str = new std::string(yytext, yyleng) ; return t 
-
  extern "C" int yywrap() { return(1) ; }  
  extern int yyerror(const char *); 
 
