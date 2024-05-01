@@ -2,7 +2,8 @@ program estructura_if
     var x: integer;
 
     procedure main {
+        x = 10; 
         if x > 0 : {
-            println("x es positivo");
+            println( x );
         };
     }
