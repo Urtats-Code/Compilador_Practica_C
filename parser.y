@@ -265,7 +265,7 @@ expression : expression TIGUALQUE expression
 
             | expression TSUMA expression
             { 
-              $$ -> str = codigo.nuevoId();
+              
               $$ = new expresionstruct; 
               *$$ = makearithmetic($1 -> str, *$2 , $3 -> str) ; 
               $$ -> trues = codigo.inilistaNum(codigo.obtenRef());
