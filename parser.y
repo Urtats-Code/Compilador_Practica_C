@@ -297,16 +297,12 @@ expression : expression TIGUALQUE expression
             { 
               $$ = new expresionstruct; 
               $$ -> str = *$1 ; 
-              $$ -> trues = new vector<int>;
-              $$ -> falses = new vector<int>;
             }
 
             | TINTEGER_CONST
             { 
               $$ = new expresionstruct; 
               $$ -> str = *$1; 
-              $$ -> trues = new vector<int>;
-              $$ -> falses = new vector<int>;
             }
 
 
@@ -314,8 +310,6 @@ expression : expression TIGUALQUE expression
             { 
               $$ = new expresionstruct; 
               $$ -> str = *$1; 
-              $$ -> trues = new vector<int>;
-              $$ -> falses = new vector<int>;
             }
 
 
@@ -323,8 +317,6 @@ expression : expression TIGUALQUE expression
             { 
               $$ = new expresionstruct; 
               $$ = $2; 
-              $$ -> trues = new vector<int>;
-              $$ -> falses = new vector<int>;
             }
 
 
