@@ -3,8 +3,6 @@
    #include <iostream>
    #include <string>
    #include <vector>
-   #include "Exp.hpp"
-   #include "Codigo.hpp"
 
    using namespace std; 
 
@@ -16,6 +14,11 @@
      printf("line %d: %s at '%s'\n", yylineno, msg, yytext) ;
      yyerrornum++;
    }
+
+   #include "Exp.hpp"
+   #include "Codigo.hpp"
+
+   Codigo codigo;
 
 %}
 
