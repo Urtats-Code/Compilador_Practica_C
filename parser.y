@@ -172,7 +172,10 @@ statement : variable TASSIG expression TSEMIC
             { codigo.anadirInstruccion( *$1 + *$2 + $3 -> str + ";" )  ; }
 
             | RIF expression TDOSPUNTOS TLBRACE M statements M TRBRACE TSEMIC
-            {}
+            { 
+              codigo.completarInstrucciones( $2 -> trues, $5 ); 
+              codigo.completarInstrucciones( $2 -> falses, $7 ); 
+            }
 
             | RWHILE RFOREVER TDOSPUNTOS TLBRACE M statements M TRBRACE TSEMIC
             {}
