@@ -146,8 +146,7 @@ subprogs : subprogram subprogs
 procs : procs subprogram
             | %empty /* vacío */
             ;
-subprogram : RPROCEDURE TID 
-            arguments procs_block TLBRACE statements TRBRACE {codigo.anadirInstruccion("endproc");}
+subprogram : RPROCEDURE TID arguments procs_block TLBRACE statements TRBRACE {codigo.anadirInstruccion("endproc" + codigo.dollar_to_string( $2 ) );}
             ;
 main_subprog : RPROCEDURE RMAIN {codigo.anadirInstruccion("proc main");}
             procs_block TLBRACE statements TRBRACE 
