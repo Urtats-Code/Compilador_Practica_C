@@ -268,7 +268,7 @@ expression : expression TIGUALQUE expression
             | TFLOAT_CONST
             {$$->str = $1->str;
             $$->trues = Codigo.inilista();
-            $$->falses = Codigo.inilista();}
+            $$->falses = new vector<int>;}
 
 
             | TPARENTESIS_ABRIR expression TPARENTESIS_CERRAR
@@ -281,5 +281,5 @@ expression : expression TIGUALQUE expression
 
 M:  %empty { $$ = Codigo.obtenRef() ; }
 	;
-   
+
 %%
