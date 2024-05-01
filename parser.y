@@ -126,7 +126,8 @@ declarations : RVAR id_list TDOSPUNTOS type TSEMIC {
             declarations 
              | %empty /* vacío */
              ;
-id_list : TID id_list_rem { $$ = codigo.anadirStr( $2 , $1 ); }
+id_list : TID id_list_rem { $$ = $2; 
+                            $$.push_back( $1 ); }
         ;
 id_list_rem : TCOMA TID id_list_rem  { $$ = codigo.anadirStr( $3 , $2 ); }
             | %empty { $$ = new vector<string>; } /* vacío */ 
