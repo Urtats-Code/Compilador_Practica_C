@@ -82,7 +82,8 @@
 %type <list> id_list_rem
 %type <list> arguments */
 
-%type <str> expression
+%type <expr> expression
+
 %type <str> variable
 %type <str> type 
 
@@ -168,7 +169,7 @@ param_list_rem : TSEMIC id_list TDOSPUNTOS par_class type {}
 statements : statements statement { }
             | %empty /* vacío */
             ;
-statement : variable TASSIG expression TSEMIC 
+statement : variable TASSIG expression TSEMIC  
             { codigo.anadirInstruccion( *$1 + *$2 + $3 -> str + ";" )  ; }
 
             | RIF expression TDOSPUNTOS TLBRACE M statements M TRBRACE TSEMIC
