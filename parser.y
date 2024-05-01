@@ -1,10 +1,11 @@
 %define parse.error verbose
 
 %{
+   #include <vector>
    #include <stdio.h>
    #include <iostream>
-   #include <vector>
    #include <string>
+
    using namespace std; 
 
    extern int yylex();
@@ -28,6 +29,8 @@
 */
 
 %union {
+   #include <vector>
+
    string *str ; 
    vector<string> *list ;
    expresionstruct *expr ;
