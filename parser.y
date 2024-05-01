@@ -36,7 +36,8 @@
 
 %union {
    string *str ; 
-   vector<string> *list ; expresionstruct *expr ;
+   vector<string> *list ;
+   expresionstruct *expr ;
    sentences *sentc ;
    int number ;
    vector<int> *numlist; 
@@ -272,13 +273,13 @@ expression : expression TIGUALQUE expression
 
 
             | TFLOAT_CONST
-            { $$ -> str  = $1 ;
+            { $$ -> *str  = $1 ;
             $$->trues =  Codigo.inilistaNumEmpty();
             $$->falses = Codigo.inilistaNumEmpty() ;}
 
 
             | TPARENTESIS_ABRIR expression TPARENTESIS_CERRAR
-            {$$->str = Codigo.nuevoId();
+            {$$-> str = Codigo.nuevoId();
             $$->trues = $2->trues;
             $$->falses = $2->falses;}
 
