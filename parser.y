@@ -26,12 +26,12 @@
    qué atributos tienen los tokens 
 */
 %union {
-   string *str ; 
-   vector<int> *numlist; 
-   vector<string> *list ;
+   std::string *str ; 
+   std::vector<std::string> *list ;
    expresionstruct *expr ;
    sentences *sentc ;
    int number ;
+   std::vector<int> *numlist; 
 }
 
 /* 
