@@ -82,6 +82,7 @@
 %type <list> id_list_rem
 %type <list> arguments */
 
+%type <str> expression
 %type <str> variable
 %type <number> M
 
@@ -100,7 +101,7 @@
 
 %%
 
-start : RPROGRAM TID {codigo.anadirInstruccion("program");} 
+start : RPROGRAM TID { codigo.anadirInstruccion("prog" + $2 ); } 
          block  {
                codigo.anadirInstruccion("halt");
 		         codigo.escribir() ; 
@@ -184,8 +185,7 @@ statement : variable TASSIG expression TSEMIC
 
             ;
 
-variable : TID { $$ = $1 ;}
-
+variable : TID { $$ = $1 ; }
          ;
 expression : expression TIGUALQUE expression
             {}
