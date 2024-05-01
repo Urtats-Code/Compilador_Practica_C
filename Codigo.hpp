@@ -59,6 +59,8 @@ public:
     /* Devuelve el número de la siguiente instrucción. */
     int obtenRef() const;
 
+    std::vector<std::string> anadirStr( std::vector<std::string> &lista, std::string &nombre ) ;
+
     std::string unirStrings1(const char* c, const std::string& s) ;
     std::string dollar_to_string( std::string* s );
 

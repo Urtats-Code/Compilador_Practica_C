@@ -187,10 +187,10 @@ std::string Codigo::dollar_to_string(std::string* s) {
 // /************/
 // /* anadirStr*/
 // /************/
-// vector<string> Codigo::anadirStr( vector<string> &lista, string &nombre ) {
-//     lista.push_back( nombre );
-//     return lista;
-// }
+std::vector<std::string> anadirStr( std::vector<std::string> &lista, std::string &nombre )  {
+    lista.push_back( nombre );
+    return lista;
+}
 
 // /************/
 // /* anadirInt*/

@@ -120,19 +120,19 @@ procs_block : declarations
                procs
             ;
 declarations : RVAR id_list TDOSPUNTOS type TSEMIC { 
-                  codigo.anadirDeclaraciones( $2 , $4 ) 
+                  codigo.anadirDeclaraciones( $2 , $4 ) ;
                    delete $2; delete $4 ;
                 }
             declarations 
              | %empty /* vacío */
              ;
-id_list : TID id_list_rem 
+id_list : TID id_list_rem { $$ = codigo.anadirStr( $2 , $1 ); }
         ;
-id_list_rem : TCOMA TID id_list_rem 
-            | %empty /* vacío */ 
+id_list_rem : TCOMA TID id_list_rem  { $$ = codigo.anadirStr( $3 , $2 ); }
+            | %empty { $$ = new vector<string>; } /* vacío */ 
             ;
-type : RINTEGER { }
-      | RFLOAT { }
+type : RINTEGER { $$ = new string("int");    }
+      | RFLOAT {  $$ = new string("real");   }
       ;
 subprogs : subprogram subprogs
             | main_subprog
