@@ -201,27 +201,48 @@ statement : variable TASSIG expression TSEMIC
 variable : TID { $$ = $1;  }
          ;
 expression : expression TIGUALQUE expression
-            {}
+            { 
+              $$ = new expresionstruct; 
+              *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
+            } 
 
             | expression TMENOR expression
-            {}
+            { 
+              $$ = new expresionstruct; 
+              *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
+            } 
 
 
             | expression TMAYOR expression
-            {}
+            { 
+              $$ = new expresionstruct; 
+              *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
+            } 
 
 
             | expression TMAYOROIGUAL expression
-            {}
+            { 
+              $$ = new expresionstruct; 
+              *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
+            } 
 
             | expression TMENOROIGUAL expression
-            {}
+            { 
+              $$ = new expresionstruct; 
+              *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
+            } 
 
             | expression TDIFERENTEA expression
-            {}
+            { 
+              $$ = new expresionstruct; 
+              *$$ = makecomparison($1 -> str, *$2 , $3 -> str) ; 
+            } 
 
             | expression TSUMA expression
-            { }
+            { 
+              $$ = new expresionstruct; 
+              *$$ = makearithmetic($1 -> str, *$2 , $3 -> str) ; 
+            } 
 
             | expression TRESTA expression
             { 
@@ -230,24 +251,31 @@ expression : expression TIGUALQUE expression
             } 
 
             | expression TMULTIPLICACION expression
-            {}
+            { 
+              $$ = new expresionstruct; 
+              *$$ = makearithmetic($1 -> str, *$2 , $3 -> str) ; 
+            } 
+
 
             | expression TDIVISION expression
-            {}
+            { 
+              $$ = new expresionstruct; 
+              *$$ = makearithmetic($1 -> str, *$2 , $3 -> str) ; 
+            } 
 
             | TID
-            {}
+            { $$ = $1 ; }
 
             | TINTEGER_CONST
-            {}
+            { $$ = $1; }
 
 
             | TFLOAT_CONST
-            {}
+            { $$ = $1; }
 
 
             | TPARENTESIS_ABRIR expression TPARENTESIS_CERRAR
-            {}
+            { $$ = $2; }
 
 
             ;
