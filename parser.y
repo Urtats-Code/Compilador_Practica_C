@@ -266,7 +266,7 @@ expression : expression TIGUALQUE expression
 
 
             | TFLOAT_CONST
-            {$$->str = $1 ;
+            { $$->str = $1 -> str ;
             $$->trues =  Codigo.inilistaNumEmpty();
             $$->falses = Codigo.inilistaNumEmpty() ;}
 
