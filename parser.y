@@ -169,8 +169,9 @@ param_list_rem : TSEMIC id_list TDOSPUNTOS par_class type {}
                ;
 statements : statements statement 
                { 
-               // $$ -> exits = codigo.unirInt($1->exits , $2->exits);
-               // $$ -> continues = codigo.unirInt($1->continues , $2->continues);
+               // $$ = new sentences;  
+               // $$->exits = codigo.unirInt($1->exits , $2->exits);
+               // $$->continues = codigo.unirInt($1->continues , $2->continues);
                }
             | statement 
                { 

@@ -4,7 +4,9 @@ program estructura_while
     procedure main {
         read(n);
         i = 1;
+        j = 10;
         while forever : {
             i = i + 1;
+            j = j + 1;
         };
     }
