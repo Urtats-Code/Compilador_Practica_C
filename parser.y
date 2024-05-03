@@ -192,7 +192,7 @@ statement : variable TASSIG expression TSEMIC
             {
             codigo.completarInstrucciones( $6 -> continues, $5 );
             codigo.completarInstrucciones( $6 -> exits, $7 + 1 );
-            codigo.anadirInstruccion("goto" + $5);
+            codigo.anadirInstruccion("goto " + to_string($5));
             }
 
             | RWHILE M expression TDOSPUNTOS TLBRACE M statements M TRBRACE 
