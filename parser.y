@@ -214,12 +214,17 @@ statement : variable TASSIG expression TSEMIC
             }
 
             | RBREAK TSEMIC M
-            { $$ = new sentences;
-            $$->exits = codigo.inilistaNum($3);
-            codigo.anadirInstruccion("goto");}
+            { 
+            // $$ = new sentences;
+            // $$->exits = codigo.inilistaNum($3);
+            // codigo.anadirInstruccion("goto");
+            }
 
             | RCONTINUE RIF M expression TSEMIC
-            {}
+            {
+               codigo.completarInstrucciones($4 -> falses, $3);
+               // $$->continues->push_back($3); ???????????? COMO AÑADO UN NUMERO A UN VECTOR<INT>
+            }
 
             | RREAD TPARENTESIS_ABRIR variable TPARENTESIS_CERRAR TSEMIC
             { codigo.anadirInstruccion( "read " + *$3 ) ;
