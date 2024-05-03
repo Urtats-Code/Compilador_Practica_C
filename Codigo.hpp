@@ -85,8 +85,8 @@ public:
     // /* Añade el numero al comienzo de la lista de numeros de entrada y devuelve la nueva lista. */
     // std::vector<int> anadirInt(std::vector<int> &lista, int &num);
 
-    // /* Junta en una sola lista de integers las dos listas de integers que se le han pasado */
-    // std::vector<int> unirInt(const std::vector<int> &lista1, const std::vector<int> &lista2);
+    /* Junta en una sola lista de integers las dos listas de integers que se le han pasado */
+    std::vector<int> unirInt(const std::vector<int> &lista1, const std::vector<int> &lista2);
 
 };
 

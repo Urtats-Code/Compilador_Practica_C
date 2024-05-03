@@ -201,21 +201,21 @@ std::vector<std::string> anadirStr( std::vector<std::string> &lista, std::string
 // }
 
 
-// /************/
-// /* unirInt*/
-// /************/
-// vector<int> Codigo::unirInt(const vector<int> &lista1, const vector<int> &lista2) {
-//     vector<int> resultado;
+/************/
+/* unirInt*/
+/************/
+vector<int> Codigo::unirInt(const vector<int> &lista1, const vector<int> &lista2) {
+    
+    vector<int> resultado = {};
+    // Agregar elementos de la primera lista
+    for (int num : lista1) {
+        resultado.push_back(num);
+    }
 
-//     // Agregar elementos de la primera lista
-//     for (int num : lista1) {
-//         resultado.push_back(num);
-//     }
+    // Agregar elementos de la segunda lista
+    for (int num : lista2) {
+        resultado.push_back(num);
+    }
 
-//     // Agregar elementos de la segunda lista
-//     for (int num : lista2) {
-//         resultado.push_back(num);
-//     }
-
-//     return resultado;
-// }
+    return resultado;
+}

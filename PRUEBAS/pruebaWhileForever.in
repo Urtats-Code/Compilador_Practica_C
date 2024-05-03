@@ -4,8 +4,8 @@ program estructura_while
     procedure main {
         read(n);
         i = 1;
-        while i <= n : {
+        while forever : {
             println(i);
             i = i + 1;
-        }
+        };
     }

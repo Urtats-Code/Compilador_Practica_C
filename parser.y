@@ -76,8 +76,7 @@
 %type <str> type 
 %type <expr> expression
 
-%type <sentc> statement
-%type <sentc> statements
+
 %type <list> id_list
 %type <list> id_list_rem
 %type <list> arguments */
@@ -91,6 +90,9 @@
 
 %type <list> id_list
 %type <list> id_list_rem
+
+%type <sentc> statement
+%type <sentc> statements
 
 /*Aquí falta poner la asociatividad y precedencia de los operadores*/
 /*** Aquí se indica la prioridad y asociatividad de los operadores:
@@ -165,11 +167,20 @@ param_list_rem : TSEMIC id_list TDOSPUNTOS par_class type {}
                param_list_rem
                | %empty /* vacío */
                ;
-statements : statements statement { }
-            | %empty /* vacío */
+statements : statements statement 
+               { 
+               // $$ -> exits = codigo.unirInt($1->exits , $2->exits);
+               // $$ -> continues = codigo.unirInt($1->continues , $2->continues);
+               }
+            | statement 
+               { 
+               // $$ = $1;
+               }
             ;
 statement : variable TASSIG expression TSEMIC  
-            { codigo.anadirInstruccion( *$1 + *$2 + $3 -> str + ";" )  ; }
+            { codigo.anadirInstruccion( *$1 + *$2 + $3 -> str + ";" )  ; 
+            $$ = new sentences;              
+            }
 
             | RIF expression TDOSPUNTOS TLBRACE M statements M TRBRACE TSEMIC
             { 
@@ -187,17 +198,23 @@ statement : variable TASSIG expression TSEMIC
             {}
 
             | RBREAK TSEMIC M
-            {}
+            { $$ = new sentences;
+            $$->exits = codigo.inilistaNum($3);
+            codigo.anadirInstruccion("goto");}
 
             | RCONTINUE RIF M expression TSEMIC
             {}
 
             | RREAD TPARENTESIS_ABRIR variable TPARENTESIS_CERRAR TSEMIC
-            { codigo.anadirInstruccion( "read " + *$3 ) ;}
+            { codigo.anadirInstruccion( "read " + *$3 ) ;
+            $$ = new sentences;
+            }
 
 
             | RPRINTLN TPARENTESIS_ABRIR expression TPARENTESIS_CERRAR TSEMIC
-            { codigo.anadirInstruccion( "read " + $3 -> str ) ;}
+            { codigo.anadirInstruccion( "println " + $3 -> str ) ;
+            $$ = new sentences;
+            }
  
             ;
 
