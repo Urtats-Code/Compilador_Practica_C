@@ -5,7 +5,6 @@ program estructura_while
         read(n);
         i = 1;
         while forever : {
-            println(i);
             i = i + 1;
         };
     }

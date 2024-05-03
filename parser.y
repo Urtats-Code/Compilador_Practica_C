@@ -174,7 +174,7 @@ statements : statements statement
                }
             | statement 
                { 
-               // $$ = $1;
+               $$ = $1;
                }
             ;
 statement : variable TASSIG expression TSEMIC  
@@ -189,7 +189,11 @@ statement : variable TASSIG expression TSEMIC
             }
 
             | RWHILE RFOREVER TDOSPUNTOS TLBRACE M statements M TRBRACE TSEMIC
-            {}
+            {
+            codigo.completarInstrucciones( $6 -> continues, $5 );
+            codigo.completarInstrucciones( $6 -> exits, $7 + 1 );
+            codigo.anadirInstruccion("goto" + $5);
+            }
 
             | RWHILE M expression TDOSPUNTOS TLBRACE M statements M TRBRACE 
             {}
