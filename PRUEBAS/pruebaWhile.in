@@ -5,9 +5,12 @@ program estructura_while
         read(n);
         i = 1;
         j = 10;
-        while forever : {
+        while i<j : {
             i = i + 1;
             j = j + 1;
+        }
+        finally : {
+        println(i);
+        println(j);
         };
     }
-    

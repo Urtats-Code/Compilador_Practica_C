@@ -197,10 +197,21 @@ statement : variable TASSIG expression TSEMIC
             }
 
             | RWHILE M expression TDOSPUNTOS TLBRACE M statements M TRBRACE 
-            {}
+            {
+               // codigo.completarInstrucciones( $7 -> continues, $2 );
+               codigo.anadirInstruccion("goto " + to_string($2));
+               codigo.completarInstrucciones( $3 -> trues, $6 );
+               codigo.completarInstrucciones( $3 -> falses, $8 + 1 );
+               
+            }
             
             RFINALLY TDOSPUNTOS TLBRACE M statements TRBRACE TSEMIC M
-            {}
+            {
+               
+               // codigo.completarInstrucciones( $7 -> exits, $17 );
+               // codigo.completarInstrucciones( $14 -> exits, $17 );
+
+            }
 
             | RBREAK TSEMIC M
             { $$ = new sentences;
