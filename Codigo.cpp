@@ -195,10 +195,16 @@ std::vector<std::string> anadirStr( std::vector<std::string> &lista, std::string
 /************/
 /* anadirInt*/
 /************/
-vector<int> Codigo::anadirInt( vector<int> &lista, int &num ) {
+vector<int> Codigo::anadirInt( vector<int> &lista, int num ) {
     lista.push_back( num );
     return lista;
 }
+
+// Change return type to void
+void anadirIntVoid(vector<int>& lista, int num) {
+    lista.push_back(num);
+}
+
 
 
 /************/

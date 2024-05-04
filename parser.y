@@ -223,7 +223,9 @@ statement : variable TASSIG expression TSEMIC
             | RCONTINUE RIF M expression TSEMIC
             {
                codigo.completarInstrucciones($4 -> falses, $3);
-               // $$->continues->push_back($3); ???????????? COMO AÑADO UN NUMERO A UN VECTOR<INT>
+               $$->continues = codigo.anadirInt($$->continues, $3); //???????????? COMO AÑADO UN NUMERO A UN VECTOR<INT>
+               codigo.anadirIntVoid($$->continues, $3); //???????????? COMO AÑADO UN NUMERO A UN VECTOR<INT>
+               
             }
 
             | RREAD TPARENTESIS_ABRIR variable TPARENTESIS_CERRAR TSEMIC
