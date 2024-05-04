@@ -1,0 +1,17 @@
+program estructura_continue_if
+    var n, i: integer;
+
+    procedure main {
+        read(n);
+        i = 1;
+        j = 10;
+        while i<j : {
+            i = i + 1;
+            j = j + 1;
+            continue if i < 200 ;
+        }
+        finally : {
+            println(i);
+            println(j);
+        };
+    }
