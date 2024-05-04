@@ -165,13 +165,13 @@ std::string Codigo::dollar_to_string(std::string* s) {
 // /* inilistaNum */
 // /************/
 
-vector<int> Codigo::inilistaNum(int num) {
+// vector<int> Codigo::inilistaNum(int num) {
 
-  vector<int> v = {};
-  v.push_back( num );
-  return v;
+//   vector<int> v = {};
+//   v.push_back( num );
+//   return v;
 
-}
+// }
 
 // /************/
 // /* inilistaNumEmpty */
@@ -195,15 +195,16 @@ std::vector<std::string> anadirStr( std::vector<std::string> &lista, std::string
 /************/
 /* anadirInt*/
 /************/
-vector<int> Codigo::anadirInt( vector<int> &lista, int num ) {
+std::vector<int> Codigo::anadirInt( std::vector<int> &lista, int num ) {
     lista.push_back( num );
     return lista;
 }
 
-// Change return type to void
-void anadirIntVoid(vector<int>& lista, int num) {
+// Definition of the function
+void Codigo::anadirIntVoid(std::vector<int>& lista, int num) {
     lista.push_back(num);
 }
+
 
 
 
