@@ -187,8 +187,8 @@ statement : variable TASSIG expression TSEMIC
             { 
               codigo.completarInstrucciones( $2 -> trues, $5 ); 
               codigo.completarInstrucciones( $2 -> falses, $7 );
-              $$->exits = codigo.unirInt($$->exits , $2->exits);
-              $$->continues = codigo.unirInt($$->continues , $2->continues);
+              $$->exits = codigo.unirInt($$->exits , $6->exits);
+              $$->continues = codigo.unirInt($$->continues , $6->continues);
             }
 
             | RWHILE RFOREVER TDOSPUNTOS TLBRACE M statements M TRBRACE TSEMIC
@@ -209,15 +209,15 @@ statement : variable TASSIG expression TSEMIC
             {
               int referencia = codigo.obtenRef();
               codigo.completarInstrucciones($7->exits, referencia);
-              codigo.completarInstrucciones($13->exits, referencia);
-              codigo.completarInstrucciones($13->continues, referencia);
+              // codigo.completarInstrucciones($13->exits, referencia);
+              // codigo.completarInstrucciones($13->continues, referencia);
             }
 
             | RBREAK TSEMIC M
             { 
-            // $$ = new sentences;
-            // $$->exits = codigo.inilistaNum($3);
-            // codigo.anadirInstruccion("goto");
+            $$ = new sentences;
+            codigo.anadirIntVoid($$->exits, $3);
+            codigo.anadirInstruccion("goto");
             }
 
             | RCONTINUE RIF M expression TSEMIC M
