@@ -36,22 +36,34 @@ void Codigo::anadirInstruccion(const string &instruccion) {
 /***********************/
 
 void Codigo::anadirDeclaraciones(const vector<string> &idNombres, const string &tipoNombre) {
-  vector<string>::const_iterator iter;
-  for (iter=idNombres.begin(); iter!=idNombres.end(); iter++) {
-    anadirInstruccion(tipoNombre + " " + *iter);
-  }
+    printf("Lista de variables:\n ");
+    for (auto iter = idNombres.rbegin(); iter != idNombres.rend(); ++iter) {
+        printf("%s\n", iter->c_str()); // Imprimir en orden inverso
+    }
+
+    for (auto iter = idNombres.rbegin(); iter != idNombres.rend(); ++iter) {
+        string imprimir = tipoNombre + " " + *iter;
+        printf("imprimir declaracion: %s\n", imprimir.c_str()); // Imprimir en orden inverso
+        anadirInstruccion(imprimir);
+    }
 }
+
 
 /*********************/
 /* anadirParametros  */
 /*********************/
 
 void Codigo::anadirParametros(const vector<string> &idNombres, const std::string &clase, const string &tipoNombre) {
-  vector<string>::const_iterator iter;
-  for (iter=idNombres.begin(); iter!=idNombres.end(); iter++) {
-    	anadirInstruccion(clase + "_" + tipoNombre  + " " + *iter );
-  }
+    printf("Lista de parámetros:\n ");
+    for (auto iter = idNombres.rbegin(); iter != idNombres.rend(); ++iter) {
+        printf("%s\n", iter->c_str()); // Imprimir en orden inverso
+    }
+
+    for (auto iter = idNombres.rbegin(); iter != idNombres.rend(); ++iter) {
+        anadirInstruccion(clase + "_" + tipoNombre  + " " + *iter);
+    }
 }
+
 
 
 /**************************/

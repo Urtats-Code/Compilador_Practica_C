@@ -125,21 +125,29 @@ procs_block : declarations
                procs
             ;
 declarations : RVAR id_list TDOSPUNTOS type TSEMIC { 
+                  printf("HA ENTRADO EN DECLARACIONES\n");
                   codigo.anadirDeclaraciones( *$2 , *$4 ) ;
                    delete $2; delete $4 ;
                 }
             declarations 
-             | %empty /* vacío */
+             | %empty /* vacío */ 
              ;
-id_list : TID id_list_rem { $$ = new vector<string>; 
-                            $$ -> push_back( *$1 ); 
+id_list : TID id_list_rem { $$ = $2 ;
+                            string tid_string= codigo.dollar_to_string( $1 ) ;
+                            $$ -> push_back( tid_string ); 
+                            printf("HA ENTRADO EN id_list, con el id: %s\n", tid_string.c_str());                           
                             }
         ;
 id_list_rem : TCOMA TID id_list_rem  {  
                               $$ = $3 ;
-                              $$ -> push_back( *$2 ); 
-                          }
-            | %empty { $$ = new vector<string>; } /* vacío */ 
+                              string tid_string= codigo.dollar_to_string( $2 ) ;
+                              $$ -> push_back( tid_string ); 
+                              printf("HA ENTRADO EN id_list_rem, con el id: %s\n", tid_string.c_str());  
+                            }
+            | %empty /* vacío */ 
+            { 
+              $$ = new vector<string>; 
+            } 
             ;
 type : RINTEGER { $$ = new string("int");    }
       | RFLOAT {  $$ = new string("real");   }
@@ -150,7 +158,14 @@ subprogs : subprogram subprogs
 procs : procs subprogram
             | %empty /* vacío */
             ;
-subprogram : RPROCEDURE TID arguments procs_block TLBRACE statements TRBRACE { codigo.anadirInstruccion("endproc " + codigo.dollar_to_string( $2 ) ); }
+subprogram : RPROCEDURE TID 
+            {
+              codigo.anadirInstruccion("proc " + codigo.dollar_to_string( $2 ) ); 
+            }
+            arguments procs_block TLBRACE statements TRBRACE 
+            { 
+              codigo.anadirInstruccion("endproc " + codigo.dollar_to_string( $2 ) ); 
+            }
             ;
 main_subprog : RPROCEDURE RMAIN { codigo.anadirInstruccion("proc main"); }
             procs_block TLBRACE statements TRBRACE 
