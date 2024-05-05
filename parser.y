@@ -200,24 +200,24 @@ statement : variable TASSIG expression TSEMIC
 
             | RWHILE M expression TDOSPUNTOS TLBRACE M statements M TRBRACE
            {
-            codigo.anadirInstruccion("goto " + to_string($2));
-            codigo.completarInstrucciones( $7 -> continues, $2 );
-            codigo.completarInstrucciones( $3 -> trues, $6 );
-            codigo.completarInstrucciones( $3 -> falses, $8 + 1 );
+            // codigo.anadirInstruccion("goto " + to_string($2));
+            // codigo.completarInstrucciones( $7 -> continues, $2 );
+            // codigo.completarInstrucciones( $3 -> trues, $6 );
+            // codigo.completarInstrucciones( $3 -> falses, $8 + 1 );
            } 
             RFINALLY TDOSPUNTOS TLBRACE statements TRBRACE TSEMIC 
             {
-              int referencia = codigo.obtenRef();
-              codigo.completarInstrucciones($7->exits, referencia);
-              // codigo.completarInstrucciones($13->exits, referencia);
-              // codigo.completarInstrucciones($13->continues, referencia);
+              // int referencia = codigo.obtenRef();
+              // codigo.completarInstrucciones($7->exits, referencia);
+              // // codigo.completarInstrucciones($13->exits, referencia);
+              // // codigo.completarInstrucciones($13->continues, referencia);
             }
 
             | RBREAK TSEMIC M
             { 
             $$ = new sentences;
             codigo.anadirIntVoid($$->exits, $3);
-            codigo.anadirInstruccion("goto");
+            codigo.anadirInstruccion("goto ");
             }
 
             | RCONTINUE RIF M expression TSEMIC M
@@ -353,7 +353,7 @@ expresionstruct makecomparison(std::string s1, std::string s2, std::string s3) {
   tmp.trues.push_back(codigo.obtenRef()) ;
   tmp.falses.push_back(codigo.obtenRef()+1) ;
   codigo.anadirInstruccion("if " + s1 + s2 + s3 + " goto") ;
-  codigo.anadirInstruccion("goto") ;
+  codigo.anadirInstruccion("goto ") ;
   return tmp ;
 }
 

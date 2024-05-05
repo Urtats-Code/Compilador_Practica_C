@@ -1676,10 +1676,10 @@ yyreduce:
   case 37: /* $@7: %empty  */
 #line 202 "parser.y"
            {
-            codigo.anadirInstruccion("goto " + to_string((yyvsp[-7].number)));
-            codigo.completarInstrucciones( (yyvsp[-2].sentc) -> continues, (yyvsp[-7].number) );
-            codigo.completarInstrucciones( (yyvsp[-6].expr) -> trues, (yyvsp[-3].number) );
-            codigo.completarInstrucciones( (yyvsp[-6].expr) -> falses, (yyvsp[-1].number) + 1 );
+            // codigo.anadirInstruccion("goto " + to_string($2));
+            // codigo.completarInstrucciones( $7 -> continues, $2 );
+            // codigo.completarInstrucciones( $3 -> trues, $6 );
+            // codigo.completarInstrucciones( $3 -> falses, $8 + 1 );
            }
 #line 1685 "parser.cpp"
     break;
@@ -1687,10 +1687,10 @@ yyreduce:
   case 38: /* statement: RWHILE M expression TDOSPUNTOS TLBRACE M statements M TRBRACE $@7 RFINALLY TDOSPUNTOS TLBRACE statements TRBRACE TSEMIC  */
 #line 209 "parser.y"
             {
-              int referencia = codigo.obtenRef();
-              codigo.completarInstrucciones((yyvsp[-9].sentc)->exits, referencia);
-              // codigo.completarInstrucciones($13->exits, referencia);
-              // codigo.completarInstrucciones($13->continues, referencia);
+              // int referencia = codigo.obtenRef();
+              // codigo.completarInstrucciones($7->exits, referencia);
+              // // codigo.completarInstrucciones($13->exits, referencia);
+              // // codigo.completarInstrucciones($13->continues, referencia);
             }
 #line 1696 "parser.cpp"
     break;

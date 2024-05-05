@@ -1,4 +1,4 @@
-program estructura_while
+program estructura_whileforver_break
     var n, i: integer;
 
     procedure main {
@@ -8,6 +8,9 @@ program estructura_while
         while forever : {
             i = i + 1;
             j = j + 1;
+            break;
         };
+        println(i);
+        println(i);
     }
     
