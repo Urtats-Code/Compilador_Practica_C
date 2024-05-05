@@ -196,7 +196,7 @@ statements : statements statement
                }
             ;
 statement : variable TASSIG expression TSEMIC  
-            { codigo.anadirInstruccion( *$1 + *$2 + $3 -> str + ";" )  ; 
+            { codigo.anadirInstruccion( *$1 + ":=" + $3 -> str + ";" )  ; 
             $$ = new sentences;              
             }
 
@@ -258,7 +258,9 @@ statement : variable TASSIG expression TSEMIC
 
 
             | RPRINTLN TPARENTESIS_ABRIR expression TPARENTESIS_CERRAR TSEMIC
-            { codigo.anadirInstruccion( "println " + $3 -> str ) ;
+            { 
+            codigo.anadirInstruccion( "write " + $3 -> str ) ;
+            codigo.anadirInstruccion( "writeln " ) ;
             $$ = new sentences;
             }
  

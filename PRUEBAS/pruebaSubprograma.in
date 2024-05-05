@@ -10,4 +10,5 @@ program prueba_subprograma
     procedure main {
         read(a); 
         read(b);
+        add(a,b);
     }
