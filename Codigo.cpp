@@ -66,6 +66,8 @@ void Codigo::completarInstrucciones(vector<int> &numInstrucciones, int valor) {
   for (iter = numInstrucciones.begin(); iter != numInstrucciones.end(); iter++) {
     instrucciones[*iter-1].append(referencia);
   }
+
+  numInstrucciones= {};
   
 }
 
