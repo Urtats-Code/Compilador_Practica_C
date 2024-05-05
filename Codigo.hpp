@@ -86,7 +86,7 @@ public:
     std::vector<int> anadirInt( std::vector<int> &lista, int num );
 
     // Change return type to void
-    void anadirIntVoid(std::vector<int>& lista, int num);
+    void anadirIntVoid(std::vector<int> *lista, int num);
 
     /* Junta en una sola lista de integers las dos listas de integers que se le han pasado */
     std::vector<int> unirInt(const std::vector<int> &lista1, const std::vector<int> &lista2);

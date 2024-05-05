@@ -67,7 +67,7 @@ void Codigo::completarInstrucciones(vector<int> &numInstrucciones, int valor) {
     instrucciones[*iter-1].append(referencia);
   }
 
-  numInstrucciones= {};
+  // numInstrucciones= {};
   
 }
 
@@ -205,8 +205,8 @@ std::vector<int> Codigo::anadirInt( std::vector<int> &lista, int num ) {
 }
 
 // Definition of the function
-void Codigo::anadirIntVoid(std::vector<int>& lista, int num) {
-    lista.push_back(num);
+void Codigo::anadirIntVoid(std::vector<int> *lista, int num) {
+    lista->push_back(num);
 }
 
 
@@ -217,12 +217,36 @@ void Codigo::anadirIntVoid(std::vector<int>& lista, int num) {
 /************/
 vector<int> Codigo::unirInt(const vector<int> &lista1, const vector<int> &lista2) {
     
-    vector<int> resultado = lista1;
-    
+    vector<int> resultado; 
+
+    printf(" --------- HA ENTRADO EN UNIR -------------\n");
+    printf("Lista 1:\n ");
+   for( int num1 : lista1 ){
+      printf("%d, ", num1); 
+    }
+
+    printf("Lista 2 :\n ");
+   for( int num1 : lista2 ){
+      printf("%d, ", num1); 
+    }
+
+
+    for( int num1 : lista1 ){
+      resultado.push_back(num1);
+    }
+
     // Agregar elementos de la segunda lista
     for (int num : lista2) {
-        anadirInt(resultado, num);
+      resultado.push_back(num);
     }
+
+    printf("Resultado \n ");
+   for( int num1 : resultado ){
+      printf("%d, ", num1); 
+    }
+  printf("\n");
+  printf(" --------- HA TERMINADO EN UNIR -------------\n");
+
 
     return resultado;
 }

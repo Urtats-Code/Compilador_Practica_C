@@ -169,13 +169,15 @@ param_list_rem : TSEMIC id_list TDOSPUNTOS par_class type {}
                ;
 statements : statements statement 
                { 
-               $$ = new sentences;  
+              //  $$ = new sentences;
                $$->exits = codigo.unirInt($1->exits , $2->exits);
-               $$->continues = codigo.unirInt($1->continues , $2->continues);
+              //  $$->continues = codigo.unirInt($1->continues , $2->continues);
                }
             | statement 
                { 
-               $$ = $1;
+              //  $$ = $1;
+               $$->exits = codigo.unirInt($$->exits , $1->exits);
+               //  $$->continues = codigo.unirInt($$->continues , $1->continues);
                }
             ;
 statement : variable TASSIG expression TSEMIC  
@@ -187,23 +189,23 @@ statement : variable TASSIG expression TSEMIC
             { 
               codigo.completarInstrucciones( $2 -> trues, $5 ); 
               codigo.completarInstrucciones( $2 -> falses, $7 );
-              $$->exits = codigo.unirInt($$->exits , $6->exits);
-              $$->continues = codigo.unirInt($$->continues , $6->continues);
+              // $$->exits = codigo.unirInt($$->exits , $6->exits);
+              // $$->continues = codigo.unirInt($$->continues , $6->continues);
             }
 
             | RWHILE RFOREVER TDOSPUNTOS TLBRACE M statements M TRBRACE TSEMIC
             {
-            codigo.completarInstrucciones( $6 -> continues, $5 );
+            // codigo.completarInstrucciones( $6 -> continues, $5 );
             codigo.completarInstrucciones( $6 -> exits, $7 + 1 );
             codigo.anadirInstruccion("goto " + to_string($5));
             }
 
             | RWHILE M expression TDOSPUNTOS TLBRACE M statements M TRBRACE
            {
-            // codigo.anadirInstruccion("goto " + to_string($2));
+            codigo.anadirInstruccion("goto " + to_string($2));
             // codigo.completarInstrucciones( $7 -> continues, $2 );
-            // codigo.completarInstrucciones( $3 -> trues, $6 );
-            // codigo.completarInstrucciones( $3 -> falses, $8 + 1 );
+            codigo.completarInstrucciones( $3 -> trues, $6 );
+            codigo.completarInstrucciones( $3 -> falses, $8 + 1 );
            } 
             RFINALLY TDOSPUNTOS TLBRACE statements TRBRACE TSEMIC 
             {
@@ -216,14 +218,16 @@ statement : variable TASSIG expression TSEMIC
             | RBREAK TSEMIC M
             { 
             $$ = new sentences;
-            codigo.anadirIntVoid($$->exits, $3);
+            printf("VALOR BREAK");
+            printf("%d, " ,$3); 
+            $$->exits.push_back($3);
             codigo.anadirInstruccion("goto ");
             }
 
             | RCONTINUE RIF M expression TSEMIC M
             {
-              codigo.completarInstrucciones($4 -> falses, $6);
-              codigo.anadirIntVoid($$->continues, $3); 
+              // codigo.completarInstrucciones($4 -> falses, $6);
+              // codigo.anadirIntVoid($$->continues, $3); 
             }
 
             | RREAD TPARENTESIS_ABRIR variable TPARENTESIS_CERRAR TSEMIC
