@@ -217,16 +217,11 @@ void Codigo::anadirIntVoid(std::vector<int>& lista, int num) {
 /************/
 vector<int> Codigo::unirInt(const vector<int> &lista1, const vector<int> &lista2) {
     
-    vector<int> resultado = {};
-
-    // Agregar elementos de la primera lista
-    for (int num : lista1) {
-        resultado.push_back(num);
-    }
-
+    vector<int> resultado = lista1;
+    
     // Agregar elementos de la segunda lista
     for (int num : lista2) {
-        resultado.push_back(num);
+        anadirInt(resultado, num);
     }
 
     return resultado;

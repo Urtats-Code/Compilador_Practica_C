@@ -187,8 +187,8 @@ statement : variable TASSIG expression TSEMIC
             { 
               codigo.completarInstrucciones( $2 -> trues, $5 ); 
               codigo.completarInstrucciones( $2 -> falses, $7 );
-              // $$->exits = codigo.unirInt($$->exits , $2->exits);
-              // $$->continues = codigo.unirInt($$->continues , $2->continues);
+              $$->exits = codigo.unirInt($$->exits , $2->exits);
+              $$->continues = codigo.unirInt($$->continues , $2->continues);
             }
 
             | RWHILE RFOREVER TDOSPUNTOS TLBRACE M statements M TRBRACE TSEMIC
@@ -198,19 +198,19 @@ statement : variable TASSIG expression TSEMIC
             codigo.anadirInstruccion("goto " + to_string($5));
             }
 
-            | RWHILE M expression TDOSPUNTOS TLBRACE M statements M 
+            | RWHILE M expression TDOSPUNTOS TLBRACE M statements M TRBRACE
            {
             codigo.anadirInstruccion("goto " + to_string($2));
             codigo.completarInstrucciones( $7 -> continues, $2 );
             codigo.completarInstrucciones( $3 -> trues, $6 );
             codigo.completarInstrucciones( $3 -> falses, $8 + 1 );
            } 
-            TRBRACE RFINALLY TDOSPUNTOS TLBRACE M statements M TRBRACE TSEMIC 
+            RFINALLY TDOSPUNTOS TLBRACE statements TRBRACE TSEMIC 
             {
               int referencia = codigo.obtenRef();
               codigo.completarInstrucciones($7->exits, referencia);
-              codigo.completarInstrucciones($14->exits, referencia);
-              codigo.completarInstrucciones($14->continues, referencia);
+              codigo.completarInstrucciones($13->exits, referencia);
+              codigo.completarInstrucciones($13->continues, referencia);
             }
 
             | RBREAK TSEMIC M
