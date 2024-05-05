@@ -58,7 +58,7 @@ void Codigo::anadirParametros(const vector<string> &idNombres, const std::string
 /* completarInstrucciones */
 /**************************/
 
-void Codigo::completarInstrucciones(vector<int> &numInstrucciones, const int valor) {
+void Codigo::completarInstrucciones(vector<int> &numInstrucciones, int valor) {
   string referencia = " " + to_string(valor) ;
   vector<int>::iterator iter;
  
