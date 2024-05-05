@@ -581,9 +581,9 @@ static const yytype_int16 yyrline[] =
        0,   112,   112,   112,   119,   119,   122,   125,   125,   130,
      132,   136,   140,   142,   143,   145,   146,   148,   149,   151,
      153,   153,   156,   157,   159,   159,   162,   163,   164,   166,
-     166,   168,   170,   176,   183,   188,   196,   204,   203,   218,
-     227,   233,   239,   246,   248,   255,   263,   271,   278,   285,
-     292,   299,   306,   314,   321,   327,   334,   341,   350
+     166,   168,   170,   176,   181,   186,   194,   203,   202,   217,
+     226,   235,   241,   248,   250,   257,   265,   273,   280,   287,
+     294,   301,   308,   316,   323,   329,   336,   343,   352
 };
 #endif
 
@@ -1629,9 +1629,9 @@ yyreduce:
   case 32: /* statements: statements statement  */
 #line 171 "parser.y"
                { 
-              //  $$ = new sentences;
+               (yyval.sentc) = new sentences;
                (yyval.sentc)->exits = codigo.unirInt((yyvsp[-1].sentc)->exits , (yyvsp[0].sentc)->exits);
-              //  $$->continues = codigo.unirInt($1->continues , $2->continues);
+               (yyval.sentc)->continues = codigo.unirInt((yyvsp[-1].sentc)->continues , (yyvsp[0].sentc)->continues);
                }
 #line 1637 "parser.cpp"
     break;
@@ -1639,66 +1639,65 @@ yyreduce:
   case 33: /* statements: statement  */
 #line 177 "parser.y"
                { 
-              //  $$ = $1;
-               (yyval.sentc)->exits = codigo.unirInt((yyval.sentc)->exits , (yyvsp[0].sentc)->exits);
-               //  $$->continues = codigo.unirInt($$->continues , $1->continues);
+               (yyval.sentc) = (yyvsp[0].sentc);
                }
-#line 1647 "parser.cpp"
+#line 1645 "parser.cpp"
     break;
 
   case 34: /* statement: variable TASSIG expression TSEMIC  */
-#line 184 "parser.y"
+#line 182 "parser.y"
             { codigo.anadirInstruccion( *(yyvsp[-3].str) + *(yyvsp[-2].str) + (yyvsp[-1].expr) -> str + ";" )  ; 
             (yyval.sentc) = new sentences;              
             }
-#line 1655 "parser.cpp"
+#line 1653 "parser.cpp"
     break;
 
   case 35: /* statement: RIF expression TDOSPUNTOS TLBRACE M statements M TRBRACE TSEMIC  */
-#line 189 "parser.y"
+#line 187 "parser.y"
             { 
               codigo.completarInstrucciones( (yyvsp[-7].expr) -> trues, (yyvsp[-4].number) ); 
               codigo.completarInstrucciones( (yyvsp[-7].expr) -> falses, (yyvsp[-2].number) );
               // $$->exits = codigo.unirInt($$->exits , $6->exits);
               // $$->continues = codigo.unirInt($$->continues , $6->continues);
             }
-#line 1666 "parser.cpp"
+#line 1664 "parser.cpp"
     break;
 
   case 36: /* statement: RWHILE RFOREVER TDOSPUNTOS TLBRACE M statements M TRBRACE TSEMIC  */
-#line 197 "parser.y"
+#line 195 "parser.y"
             {
-            // codigo.completarInstrucciones( $6 -> continues, $5 );
+            codigo.completarInstrucciones( (yyvsp[-3].sentc) -> continues, (yyvsp[-4].number) );
             codigo.completarInstrucciones( (yyvsp[-3].sentc) -> exits, (yyvsp[-2].number) + 1 );
             codigo.anadirInstruccion("goto " + to_string((yyvsp[-4].number)));
+            (yyval.sentc) = new sentences;
             }
-#line 1676 "parser.cpp"
+#line 1675 "parser.cpp"
     break;
 
   case 37: /* $@7: %empty  */
-#line 204 "parser.y"
+#line 203 "parser.y"
            {
             codigo.anadirInstruccion("goto " + to_string((yyvsp[-7].number)));
             // codigo.completarInstrucciones( $7 -> continues, $2 );
             codigo.completarInstrucciones( (yyvsp[-6].expr) -> trues, (yyvsp[-3].number) );
             codigo.completarInstrucciones( (yyvsp[-6].expr) -> falses, (yyvsp[-1].number) + 1 );
            }
-#line 1687 "parser.cpp"
+#line 1686 "parser.cpp"
     break;
 
   case 38: /* statement: RWHILE M expression TDOSPUNTOS TLBRACE M statements M TRBRACE $@7 RFINALLY TDOSPUNTOS TLBRACE statements TRBRACE TSEMIC  */
-#line 211 "parser.y"
+#line 210 "parser.y"
             {
               // int referencia = codigo.obtenRef();
               // codigo.completarInstrucciones($7->exits, referencia);
               // // codigo.completarInstrucciones($13->exits, referencia);
               // // codigo.completarInstrucciones($13->continues, referencia);
             }
-#line 1698 "parser.cpp"
+#line 1697 "parser.cpp"
     break;
 
   case 39: /* statement: RBREAK TSEMIC M  */
-#line 219 "parser.y"
+#line 218 "parser.y"
             { 
             (yyval.sentc) = new sentences;
             printf("VALOR BREAK");
@@ -1706,184 +1705,187 @@ yyreduce:
             (yyval.sentc)->exits.push_back((yyvsp[0].number));
             codigo.anadirInstruccion("goto ");
             }
-#line 1710 "parser.cpp"
+#line 1709 "parser.cpp"
     break;
 
   case 40: /* statement: RCONTINUE RIF M expression TSEMIC M  */
-#line 228 "parser.y"
+#line 227 "parser.y"
             {
-              // codigo.completarInstrucciones($4 -> falses, $6);
-              // codigo.anadirIntVoid($$->continues, $3); 
+              (yyval.sentc) = new sentences;
+              printf("VALOR CONTINUE");
+              printf("%d, " ,(yyvsp[-3].number)); 
+              codigo.completarInstrucciones((yyvsp[-2].expr) -> falses, (yyvsp[0].number));
+              (yyval.sentc)->continues.push_back((yyvsp[-3].number));
             }
-#line 1719 "parser.cpp"
+#line 1721 "parser.cpp"
     break;
 
   case 41: /* statement: RREAD TPARENTESIS_ABRIR variable TPARENTESIS_CERRAR TSEMIC  */
-#line 234 "parser.y"
+#line 236 "parser.y"
             { codigo.anadirInstruccion( "read " + *(yyvsp[-2].str) ) ;
             (yyval.sentc) = new sentences;
             }
-#line 1727 "parser.cpp"
+#line 1729 "parser.cpp"
     break;
 
   case 42: /* statement: RPRINTLN TPARENTESIS_ABRIR expression TPARENTESIS_CERRAR TSEMIC  */
-#line 240 "parser.y"
+#line 242 "parser.y"
             { codigo.anadirInstruccion( "println " + (yyvsp[-2].expr) -> str ) ;
             (yyval.sentc) = new sentences;
             }
-#line 1735 "parser.cpp"
+#line 1737 "parser.cpp"
     break;
 
   case 43: /* variable: TID  */
-#line 246 "parser.y"
+#line 248 "parser.y"
                { (yyval.str) = (yyvsp[0].str);  }
-#line 1741 "parser.cpp"
+#line 1743 "parser.cpp"
     break;
 
   case 44: /* expression: expression TIGUALQUE expression  */
-#line 249 "parser.y"
+#line 251 "parser.y"
             { 
               (yyval.expr) = new expresionstruct; 
               *(yyval.expr) = makecomparison((yyvsp[-2].expr) -> str, *(yyvsp[-1].str) , (yyvsp[0].expr) -> str) ; 
               delete (yyvsp[-2].expr); delete (yyvsp[0].expr);
             }
-#line 1751 "parser.cpp"
+#line 1753 "parser.cpp"
     break;
 
   case 45: /* expression: expression TMENOR expression  */
-#line 256 "parser.y"
+#line 258 "parser.y"
             { 
               (yyval.expr) = new expresionstruct; 
               *(yyval.expr) = makecomparison((yyvsp[-2].expr) -> str, *(yyvsp[-1].str) , (yyvsp[0].expr) -> str) ; 
               delete (yyvsp[-2].expr); delete (yyvsp[0].expr);
             }
-#line 1761 "parser.cpp"
+#line 1763 "parser.cpp"
     break;
 
   case 46: /* expression: expression TMAYOR expression  */
-#line 264 "parser.y"
+#line 266 "parser.y"
             { 
               (yyval.expr) = new expresionstruct; 
               *(yyval.expr) = makecomparison((yyvsp[-2].expr) -> str, *(yyvsp[-1].str) , (yyvsp[0].expr) -> str) ; 
               delete (yyvsp[-2].expr); delete (yyvsp[0].expr);
             }
-#line 1771 "parser.cpp"
+#line 1773 "parser.cpp"
     break;
 
   case 47: /* expression: expression TMAYOROIGUAL expression  */
-#line 272 "parser.y"
+#line 274 "parser.y"
             { 
               (yyval.expr) = new expresionstruct; 
               *(yyval.expr) = makecomparison((yyvsp[-2].expr) -> str, *(yyvsp[-1].str) , (yyvsp[0].expr) -> str) ; 
               delete (yyvsp[-2].expr); delete (yyvsp[0].expr);
             }
-#line 1781 "parser.cpp"
+#line 1783 "parser.cpp"
     break;
 
   case 48: /* expression: expression TMENOROIGUAL expression  */
-#line 279 "parser.y"
+#line 281 "parser.y"
             { 
               (yyval.expr) = new expresionstruct; 
               *(yyval.expr) = makecomparison((yyvsp[-2].expr) -> str, *(yyvsp[-1].str) , (yyvsp[0].expr) -> str) ; 
               delete (yyvsp[-2].expr); delete (yyvsp[0].expr);
             }
-#line 1791 "parser.cpp"
+#line 1793 "parser.cpp"
     break;
 
   case 49: /* expression: expression TDIFERENTEA expression  */
-#line 286 "parser.y"
+#line 288 "parser.y"
             { 
               (yyval.expr) = new expresionstruct; 
               *(yyval.expr) = makecomparison((yyvsp[-2].expr) -> str, *(yyvsp[-1].str) , (yyvsp[0].expr) -> str) ; 
               delete (yyvsp[-2].expr); delete (yyvsp[0].expr);
             }
-#line 1801 "parser.cpp"
+#line 1803 "parser.cpp"
     break;
 
   case 50: /* expression: expression TSUMA expression  */
-#line 293 "parser.y"
+#line 295 "parser.y"
             { 
               (yyval.expr) = new expresionstruct; 
               *(yyval.expr) = makearithmetic((yyvsp[-2].expr) -> str, *(yyvsp[-1].str) , (yyvsp[0].expr) -> str) ; 
               delete (yyvsp[-2].expr); delete (yyvsp[0].expr);
             }
-#line 1811 "parser.cpp"
+#line 1813 "parser.cpp"
     break;
 
   case 51: /* expression: expression TRESTA expression  */
-#line 300 "parser.y"
+#line 302 "parser.y"
             { 
               (yyval.expr) = new expresionstruct; 
               *(yyval.expr) = makearithmetic((yyvsp[-2].expr) -> str, *(yyvsp[-1].str) , (yyvsp[0].expr) -> str) ; 
               delete (yyvsp[-2].expr); delete (yyvsp[0].expr);
             }
-#line 1821 "parser.cpp"
+#line 1823 "parser.cpp"
     break;
 
   case 52: /* expression: expression TMULTIPLICACION expression  */
-#line 307 "parser.y"
+#line 309 "parser.y"
             { 
               (yyval.expr) = new expresionstruct; 
               *(yyval.expr) = makearithmetic((yyvsp[-2].expr) -> str, *(yyvsp[-1].str) , (yyvsp[0].expr) -> str) ; 
               delete (yyvsp[-2].expr); delete (yyvsp[0].expr);
             }
-#line 1831 "parser.cpp"
+#line 1833 "parser.cpp"
     break;
 
   case 53: /* expression: expression TDIVISION expression  */
-#line 315 "parser.y"
+#line 317 "parser.y"
             { 
               (yyval.expr) = new expresionstruct; 
               *(yyval.expr) = makearithmetic((yyvsp[-2].expr) -> str, *(yyvsp[-1].str) , (yyvsp[0].expr) -> str) ; 
               delete (yyvsp[-2].expr); delete (yyvsp[0].expr);
             }
-#line 1841 "parser.cpp"
+#line 1843 "parser.cpp"
     break;
 
   case 54: /* expression: TID  */
-#line 322 "parser.y"
+#line 324 "parser.y"
             { 
               (yyval.expr) = new expresionstruct; 
               (yyval.expr) -> str = *(yyvsp[0].str) ; 
             }
-#line 1850 "parser.cpp"
+#line 1852 "parser.cpp"
     break;
 
   case 55: /* expression: TINTEGER_CONST  */
-#line 328 "parser.y"
+#line 330 "parser.y"
             { 
               (yyval.expr) = new expresionstruct; 
               (yyval.expr) -> str = *(yyvsp[0].str); 
             }
-#line 1859 "parser.cpp"
+#line 1861 "parser.cpp"
     break;
 
   case 56: /* expression: TFLOAT_CONST  */
-#line 335 "parser.y"
+#line 337 "parser.y"
             { 
               (yyval.expr) = new expresionstruct; 
               (yyval.expr) -> str = *(yyvsp[0].str); 
             }
-#line 1868 "parser.cpp"
+#line 1870 "parser.cpp"
     break;
 
   case 57: /* expression: TPARENTESIS_ABRIR expression TPARENTESIS_CERRAR  */
-#line 342 "parser.y"
+#line 344 "parser.y"
             { 
               (yyval.expr) = new expresionstruct; 
               (yyval.expr) = (yyvsp[-1].expr); 
             }
-#line 1877 "parser.cpp"
+#line 1879 "parser.cpp"
     break;
 
   case 58: /* M: %empty  */
-#line 350 "parser.y"
+#line 352 "parser.y"
            { (yyval.number) = codigo.obtenRef() ; }
-#line 1883 "parser.cpp"
+#line 1885 "parser.cpp"
     break;
 
 
-#line 1887 "parser.cpp"
+#line 1889 "parser.cpp"
 
       default: break;
     }
@@ -2107,7 +2109,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 353 "parser.y"
+#line 355 "parser.y"
 
 
 expresionstruct makecomparison(std::string s1, std::string s2, std::string s3) {

@@ -1,0 +1,12 @@
+program estructura_whileforver_continueIf
+    var n, i: integer;
+
+    procedure main {
+        i=10;
+        while forever : {
+            read(i);
+            continue if i > 1;
+            i = i + 1;
+        };
+    }
+    

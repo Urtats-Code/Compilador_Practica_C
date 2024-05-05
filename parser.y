@@ -169,15 +169,13 @@ param_list_rem : TSEMIC id_list TDOSPUNTOS par_class type {}
                ;
 statements : statements statement 
                { 
-              //  $$ = new sentences;
+               $$ = new sentences;
                $$->exits = codigo.unirInt($1->exits , $2->exits);
-              //  $$->continues = codigo.unirInt($1->continues , $2->continues);
+               $$->continues = codigo.unirInt($1->continues , $2->continues);
                }
             | statement 
                { 
-              //  $$ = $1;
-               $$->exits = codigo.unirInt($$->exits , $1->exits);
-               //  $$->continues = codigo.unirInt($$->continues , $1->continues);
+               $$ = $1;
                }
             ;
 statement : variable TASSIG expression TSEMIC  
@@ -195,9 +193,10 @@ statement : variable TASSIG expression TSEMIC
 
             | RWHILE RFOREVER TDOSPUNTOS TLBRACE M statements M TRBRACE TSEMIC
             {
-            // codigo.completarInstrucciones( $6 -> continues, $5 );
+            codigo.completarInstrucciones( $6 -> continues, $5 );
             codigo.completarInstrucciones( $6 -> exits, $7 + 1 );
             codigo.anadirInstruccion("goto " + to_string($5));
+            $$ = new sentences;
             }
 
             | RWHILE M expression TDOSPUNTOS TLBRACE M statements M TRBRACE
@@ -226,8 +225,11 @@ statement : variable TASSIG expression TSEMIC
 
             | RCONTINUE RIF M expression TSEMIC M
             {
-              // codigo.completarInstrucciones($4 -> falses, $6);
-              // codigo.anadirIntVoid($$->continues, $3); 
+              $$ = new sentences;
+              printf("VALOR CONTINUE");
+              printf("%d, " ,$3); 
+              codigo.completarInstrucciones($4 -> falses, $6);
+              $$->continues.push_back($3);
             }
 
             | RREAD TPARENTESIS_ABRIR variable TPARENTESIS_CERRAR TSEMIC

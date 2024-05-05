@@ -2,15 +2,9 @@ program estructura_whileforver_break
     var n, i: integer;
 
     procedure main {
-        read(n);
-        i = 1;
-        j = 10;
         while forever : {
-            i = i + 1;
-            j = j + 1;
+            read(n);
             break;
         };
-        println(i);
-        println(i);
     }
     
