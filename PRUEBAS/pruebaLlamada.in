@@ -1,8 +1,16 @@
 program llamada_procedimiento
-    procedure greet {
-        println("¡Hola!");
+    var  a,b,c : integer;
+	var  d,e : float;
+    procedure add ( x,y: in integer; result:in out integer)
+	var aux, iteration : integer;
+    {
+        println(10);
     }
 
     procedure main {
-        greet();
+        read(a); read(b);
+        d= 1/b;
+        e= 1/a;
+        c= c*(c*d)+e;
+        println(c*c);
     }

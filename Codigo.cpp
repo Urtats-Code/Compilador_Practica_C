@@ -134,25 +134,23 @@ std::string Codigo::dollar_to_string(std::string* s) {
 
 // }
 
-// /************/
-// /* anadir_argumentos */
-// /************/
+/************/
+/* anadir_argumentos */
+/************/
 
-// void Codigo::anadir_argumentos(const vector<string> &listaArgumentos, const string &pClase, const string &pTipo ) {
+void Codigo::anadir_argumentos(std::vector<std::string> &listaArgumentos, std::string &pClase, std::string &pTipo) {
+    vector<string>::const_iterator string_iter;
 
-//   vector<string>::const_iterator string_iter;
+    const string EMPTY_STRING = " ";
+    const string LOW_BAR = "_";
 
-//   string EMPTY_STRING = " ";
-//   string LOW_BAR = "_";
+    for (string_iter = listaArgumentos.begin(); string_iter != listaArgumentos.end(); ++string_iter) {
+        string name = pClase + LOW_BAR + pTipo;
+        string cadena = name + EMPTY_STRING + *string_iter;
+        anadirInstruccion(cadena);
+    }
+}
 
-//   for (string_iter=listaArgumentos.begin(); string_iter!=listaArgumentos.end(); string_iter++) {
-
-//     string name = pClase + LOW_BAR +  pTipo;
-//     string cadena =  name + EMPTY_STRING +  *string_iter;
-//     anadirInstruccion( *string_iter );
-//   }
-
-// }
 
 // /************/
 // /* inilista*/

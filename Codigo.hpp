@@ -71,7 +71,7 @@ public:
 
 
     // /* Por cada variable a la lista de entrada, empezando por el primero y hasta el último añade una instrucción teniendo en cuenta el par_class y el type.*/
-    // void anadir_argumentos(const std::vector<std::string> &listaArgumentos, const std::string &pClase, const std::string &pTipo);
+    void anadir_argumentos(std::vector<std::string> &listaArgumentos, std::string &pClase, std::string &pTipo );
 
     // /* Crea una lista vacía */
     // std::vector<std::string> inilista();

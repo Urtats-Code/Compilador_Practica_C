@@ -85,6 +85,8 @@
 
 %type <str> variable
 %type <str> type 
+%type <str> par_class 
+
 
 %type <number> M
 
@@ -148,7 +150,7 @@ subprogs : subprogram subprogs
 procs : procs subprogram
             | %empty /* vacío */
             ;
-subprogram : RPROCEDURE TID arguments procs_block TLBRACE statements TRBRACE { codigo.anadirInstruccion("endproc" + codigo.dollar_to_string( $2 ) ); }
+subprogram : RPROCEDURE TID arguments procs_block TLBRACE statements TRBRACE { codigo.anadirInstruccion("endproc " + codigo.dollar_to_string( $2 ) ); }
             ;
 main_subprog : RPROCEDURE RMAIN { codigo.anadirInstruccion("proc main"); }
             procs_block TLBRACE statements TRBRACE 
@@ -156,14 +158,14 @@ main_subprog : RPROCEDURE RMAIN { codigo.anadirInstruccion("proc main"); }
 arguments : TPARENTESIS_ABRIR param_list TPARENTESIS_CERRAR
             | %empty /* vacío */ 
             ;
-param_list : id_list TDOSPUNTOS par_class type {}
+param_list : id_list TDOSPUNTOS par_class type {codigo.anadir_argumentos(*$1,*$3,*$4);}
             param_list_rem
             ;
-par_class : RIN {}
-            |ROUT {}
-            |RIN ROUT {}
+par_class : RIN { $$ = new string("val");  }
+            |ROUT {$$ = new string("ref"); }
+            |RIN ROUT {$$ = new string("ref"); }
             ;
-param_list_rem : TSEMIC id_list TDOSPUNTOS par_class type {}
+param_list_rem : TSEMIC id_list TDOSPUNTOS par_class type {codigo.anadir_argumentos(*$2,*$4,*$5);}
                param_list_rem
                | %empty /* vacío */
                ;
