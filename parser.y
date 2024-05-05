@@ -209,11 +209,12 @@ statement : variable TASSIG expression TSEMIC
             }
             
             RFINALLY TDOSPUNTOS TLBRACE M statements TRBRACE TSEMIC M
-            {
-               
-               codigo.completarInstrucciones( $7 -> exits, $17 );
-               codigo.completarInstrucciones( $14 -> exits, $17 );
+            {  
+
+               codigo.completarInstrucciones( $7 -> exits, codigo.obtenRef( $17 ) );
+               codigo.completarInstrucciones( $14 -> exits, codigo.obtenRef( *$17 ) );
                codigo.completarInstrucciones( $14 -> continues, $17 );
+
             }
 
             | RBREAK TSEMIC M
