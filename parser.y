@@ -206,7 +206,7 @@ statement : variable TASSIG expression TSEMIC
               codigo.completarInstrucciones( $2 -> falses, $7 );
               // $$->exits = codigo.unirInt($$->exits , $6->exits);
               // $$->continues = codigo.unirInt($$->continues , $6->continues);
-              // $$ = $6;
+              $$ = $6;
             }
 
             | RWHILE RFOREVER TDOSPUNTOS TLBRACE M statements M TRBRACE TSEMIC
