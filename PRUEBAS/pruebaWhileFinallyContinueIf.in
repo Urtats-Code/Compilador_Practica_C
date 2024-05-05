@@ -1,0 +1,15 @@
+program estructura_whileforver_continueIf
+    var n, i: integer;
+
+    procedure main {
+        i=10;
+        while i /= 0 : {
+                i = i + 1;
+                continue if result > 1000000 ;
+                read(i);
+            }
+            finally: {
+                println(i);
+            };		
+    }
+    

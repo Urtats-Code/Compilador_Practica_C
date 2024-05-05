@@ -208,10 +208,11 @@ statement : variable TASSIG expression TSEMIC
            } 
             RFINALLY TDOSPUNTOS TLBRACE statements TRBRACE TSEMIC 
             {
-              // int referencia = codigo.obtenRef();
-              // codigo.completarInstrucciones($7->exits, referencia);
-              // // codigo.completarInstrucciones($13->exits, referencia);
-              // // codigo.completarInstrucciones($13->continues, referencia);
+              int referencia = codigo.obtenRef();
+              codigo.completarInstrucciones($7->exits, referencia);
+              // codigo.completarInstrucciones($13->exits, referencia);
+              // codigo.completarInstrucciones($13->continues, referencia);
+              $$ = new sentences;
             }
 
             | RBREAK TSEMIC M
