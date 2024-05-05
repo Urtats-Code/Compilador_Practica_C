@@ -59,34 +59,15 @@ public:
     /* Devuelve el número de la siguiente instrucción. */
     int obtenRef() const;
 
-    std::vector<std::string> anadirStr( std::vector<std::string> &lista, std::string &nombre ) ;
+    /////////////////////////////////////////////
+    /* NUEVAS FUNCIONES AÑADIDAS */
+    /////////////////////////////////////////////
 
-    std::string unirStrings1(const char* c, const std::string& s) ;
+    /* Devuelve el string atado a un TID*/
     std::string dollar_to_string( std::string* s );
 
-    /////////////////////////////////////////////7
-    /* NUEVAS FUNCIONES AÑADIDAS */
-    /////////////////////////////////////////////7
-
-
-
-    // /* Por cada variable a la lista de entrada, empezando por el primero y hasta el último añade una instrucción teniendo en cuenta el par_class y el type.*/
+    /* Por cada variable a la lista de entrada, empezando por el primero y hasta el último añade una instrucción teniendo en cuenta el par_class y el type.*/
     void anadir_argumentos(std::vector<std::string> &listaArgumentos, std::string &pClase, std::string &pTipo );
-
-    // /* Crea una lista vacía */
-    // std::vector<std::string> inilista();
-
-    // /* Crea una lista vacía cuyo primer y único elemento es “num”. */
-    // std::vector<int> inilistaNum(int num);
-
-    // /* Añade el nombre al comienzo de la lista de strings de entrada y devuelve la nueva lista. */
-    // std::vector<std::string> anadirStr(std::vector<std::string> &lista, std::string &nombre);
-
-    /* Añade el numero al comienzo de la lista de numeros de entrada y devuelve la nueva lista. */
-    std::vector<int> anadirInt( std::vector<int> &lista, int num );
-
-    // Change return type to void
-    void anadirIntVoid(std::vector<int> *lista, int num);
 
     /* Junta en una sola lista de integers las dos listas de integers que se le han pasado */
     std::vector<int> unirInt(const std::vector<int> &lista1, const std::vector<int> &lista2);

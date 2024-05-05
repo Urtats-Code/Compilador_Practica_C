@@ -1,6 +1,7 @@
 program prueba_subprograma
     var  a,b,c : integer;
 	var  d,e : float;
+   
     procedure add ( x,y: in integer; result:in out integer)
 	var aux, iteration : integer;
     {
@@ -10,5 +11,4 @@ program prueba_subprograma
     procedure main {
         read(a); 
         read(b);
-        add(a,b,c);
     }

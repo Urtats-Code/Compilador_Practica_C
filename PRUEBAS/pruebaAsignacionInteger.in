@@ -1,6 +1,5 @@
 program asignacion_variable
     var x: integer;
-
     procedure main {
         x = 10;
     }

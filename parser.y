@@ -40,8 +40,7 @@
 /*   declaración de tokens. Esto debe coincidir con tokens.l */
 
 //Tokens definidos: id, integer, float/double...
-%token <str> TID TFLOAT_CONST TINTEGER_CONST TCOMENTARIO_LINEA
-/* %token TCOMENTARIO_MULTILINEA  */
+%token <str> TID TFLOAT_CONST TINTEGER_CONST TCOMENTARIO_LINEA TCOMENTARIO_MULTILINEA
 
 // ==,<,<=,>,>=
 %token <str> TIGUALQUE TMENOR TMENOROIGUAL TMAYOR TMAYOROIGUAL TDIFERENTEA
@@ -55,7 +54,7 @@
 
 /*	Estos tokens no tienen atributos:   */
 
-//Parentesis abrir, parentesis cerra, coma
+//Parentesis abrir, parentesis cerrar, coma
 %token  TPARENTESIS_ABRIR TPARENTESIS_CERRAR
 
 //Llaves abrir, llaves cerrar
@@ -125,7 +124,6 @@ procs_block : declarations
                procs
             ;
 declarations : RVAR id_list TDOSPUNTOS type TSEMIC { 
-                  printf("HA ENTRADO EN DECLARACIONES\n");
                   codigo.anadirDeclaraciones( *$2 , *$4 ) ;
                    delete $2; delete $4 ;
                 }
@@ -134,15 +132,13 @@ declarations : RVAR id_list TDOSPUNTOS type TSEMIC {
              ;
 id_list : TID id_list_rem { $$ = $2 ;
                             string tid_string= codigo.dollar_to_string( $1 ) ;
-                            $$ -> push_back( tid_string ); 
-                            printf("HA ENTRADO EN id_list, con el id: %s\n", tid_string.c_str());                           
+                            $$ -> push_back( tid_string );                           
                             }
         ;
 id_list_rem : TCOMA TID id_list_rem  {  
                               $$ = $3 ;
                               string tid_string= codigo.dollar_to_string( $2 ) ;
                               $$ -> push_back( tid_string ); 
-                              printf("HA ENTRADO EN id_list_rem, con el id: %s\n", tid_string.c_str());  
                             }
             | %empty /* vacío */ 
             { 
@@ -204,8 +200,6 @@ statement : variable TASSIG expression TSEMIC
             { 
               codigo.completarInstrucciones( $2 -> trues, $5 ); 
               codigo.completarInstrucciones( $2 -> falses, $7 );
-              // $$->exits = codigo.unirInt($$->exits , $6->exits);
-              // $$->continues = codigo.unirInt($$->continues , $6->continues);
               $$ = $6;
             }
 
@@ -228,16 +222,12 @@ statement : variable TASSIG expression TSEMIC
             {
               int referencia = codigo.obtenRef();
               codigo.completarInstrucciones($7->exits, referencia);
-              // codigo.completarInstrucciones($13->exits, referencia);
-              // codigo.completarInstrucciones($13->continues, referencia);
               $$ = new sentences;
             }
 
             | RBREAK TSEMIC M
             { 
             $$ = new sentences;
-            printf("VALOR BREAK");
-            printf("%d, " ,$3); 
             $$->exits.push_back($3);
             codigo.anadirInstruccion("goto ");
             }
@@ -245,8 +235,6 @@ statement : variable TASSIG expression TSEMIC
             | RCONTINUE RIF M expression TSEMIC M
             {
               $$ = new sentences;
-              printf("VALOR CONTINUE");
-              printf("%d, " ,$3); 
               codigo.completarInstrucciones($4 -> falses, $6);
               $$->continues.push_back($3);
             }
